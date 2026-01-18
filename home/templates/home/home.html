@@ -1,9 +1,135 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+
 {% block content %}
 
-<h1>Welcome to the Home Page</h1>
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="overlay"></div>
+
+  <div class="container position-relative z-1 pt-5">
+    <div class="row g-4 align-items-start">
+
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
+        <!-- SEARCH -->
+        <div class="glass-card mb-4">
+          <div class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search for cheater reports..." />
+            <button class="btn btn-success px-4">Search</button>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="glass-card">
+          <h2 class="fw-bold mb-3">Join the Fight Against Cheating!</h2>
+          <p class="text-secondary">
+            Sign in or sign up to report cheaters and discuss the latest incidents.
+          </p>
+
+          <div class="d-flex gap-3 mt-4">
+            <a class="btn btn-outline-light btn-lg px-4" href="{{ login_url }}">Login</a>
+            <a class="btn btn-success btn-lg px-4" href="{{ signup_url }}">Sign Up</a>
+          </div>
+        </div>
+
+        <!-- NEWS CARD -->
+        <div class="glass-card mt-4">
+          <h4 class="fw-bold mb-3">Latest News</h4>
+
+          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">New Anti-Cheat System Deployed</h6>
+              <small class="text-secondary">2 hours ago</small>
+              <p class="text-secondary mt-2 mb-0">Enhanced detection algorithms now active across all servers.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+
+          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
+              <small class="text-secondary">1 day ago</small>
+              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+
+          <div class="d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">Community Tournament Announced</h6>
+              <small class="text-secondary">3 days ago</small>
+              <p class="text-secondary mt-2 mb-0">Fair-play championship with anti-cheat verification required.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-5">
+        <div class="glass-card">
+          <h4 class="fw-bold mb-1">Top Clips This Month</h4>
+          <p class="text-secondary mb-4">Most Popular Reports</p>
+
+          <!-- CLIP ITEM -->
+          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0">Suspect Aimbot Rampage</h6>
+              <small class="text-secondary">Cheater123 ⭐ 4.8</small>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          </div>
+
+          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0">Wallhack Wizard</h6>
+              <small class="text-secondary">ShadowKiller ⭐ 4.7</small>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          </div>
+
+          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0">Instant Headshot Hacker</h6>
+              <small class="text-secondary">NoScopeKing ⭐ 4.6</small>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          </div>
+
+          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0">Speed Hack Madness</h6>
+              <small class="text-secondary">FastRunner ⭐ 4.5</small>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          </div>
+
+          <div class="clip-item mb-0 d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0">ESP Exploit Exposed</h6>
+              <small class="text-secondary">XxCheatSpotxX ⭐ 4.4</small>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- home.html content ends here -->
 {% endblock %}

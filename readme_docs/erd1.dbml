@@ -1,0 +1,70 @@
+Table AllAuthUser {
+  id integer  [primary key, not null]
+  email varchar [unique, not null]
+  password_hash varchar [not null]
+}
+
+Table UserProfile {
+  id integer  [primary key, not null]
+  user integer [not null, ref: > AllAuthUser.id]
+  username varchar [unique, not null]
+  profile_picture image
+  created_on datetime [not null]
+}
+
+Enum HackType {
+  aimbot
+  esp
+  wallhack
+  speedhack
+}
+
+Table CheaterPost {
+  id integer  [primary key, not null]
+  author integer [not null, ref: > AllAuthUser.id]
+  title varchar [not null]
+  suspect_username varchar [not null]
+  youtube_url varchar [not null]
+  suspected_hack_types HackType[] [not null]
+  description varchar [not null]
+  created_on datetime [not null]
+}
+
+Table PostComment {
+  id integer  [primary key, not null]
+  author integer [not null, ref: > AllAuthUser.id]
+  post integer [not null, ref: > CheaterPost.id]
+  created_on datetime [not null]
+}
+
+Table UserReport {
+  id integer  [primary key, not null]
+  author integer [not null, ref: > AllAuthUser.id]
+  report_type varchar [not null]
+  post_id varchar [ref: > CheaterPost.id]
+  comment_id varchar [ref: > PostComment.id]
+  description varchar [not null]
+  created_on datetime [not null]
+}
+
+Table NewsPost {
+  id integer  [primary key, not null]
+  author integer [not null, ref: > AllAuthUser.id]
+  title varchar [not null]
+  featured_image image
+  content varchar [not null]
+  created_on datetime [not null]
+  updated_on datetime [not null]
+  status integer
+  excerpt varchar [not null]
+}
+
+Table About {
+  id integer  [primary key, not null]
+  author integer [not null, ref: > AllAuthUser.id]
+  title varchar [not null]
+  featured_image image
+  content varchar [not null]
+  created_on datetime [not null]
+  updated_on datetime [not null]
+}

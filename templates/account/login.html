@@ -1,33 +1,88 @@
 {% extends "base.html" %}
 
 {% load i18n %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_field %}
+
+{% url 'account_signup' as signup_url %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <h3>{% trans "Sign In" %}</h3>
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="overlay"></div>
 
-            <p>{% blocktrans %}Welcome back to the code|star blog. To leave a comment or like a post, please log in. If
-                you
-                have not created an account yet, then <a class="link" href="{{ signup_url }}">sign up</a>
-                first.{% endblocktrans %}</p>
+    <div class="container position-relative z-1 pt-5">
+        <div class="row g-4 justify-content-center">
+            <div class="col-lg-6">
+                <!-- SIGN IN CARD -->
+                <div class="glass-card">
+                    <h2 class="fw-bold mb-3">{% trans "Sign In" %}</h2>
+
+                    <p class="text-secondary mb-4">
+                        {% blocktrans %}Welcome back! To participate in our community, please log in. If you don't have an account yet,
+                        <a class="link text-success" href="{{ signup_url }}">sign up here</a>.{% endblocktrans %}
+                    </p>
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger mb-4">
+                        <strong>{% trans "Error:" %}</strong>
+                        {% for error in form.non_field_errors %}
+                        <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+
+                        {{ form.login|as_crispy_field }}
+
+                        {{ form.password|as_crispy_field }}
+
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <p class="text-secondary text-center mb-3">
+                            <button type="button" class="btn btn-link text-success p-0" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">{% trans "Forgot Password?" %}</button>
+                        </p>
+
+                        <button class="btn btn-success w-100 btn-lg" type="submit">{% trans "Sign In" %}</button>
+                    </form>
+
+                    <hr class="my-4">
+
+                    <p class="text-secondary text-center mb-3">
+                        {% trans "Don't have an account?" %}
+                        <a class="link text-success fw-bold" href="{{ signup_url }}">{% trans "Sign Up" %}</a>
+                    </p>
+
+
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-8 mt-3 offset-md-2">
-            <form class="login" method="POST" action="{% url 'account_login' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                {% endif %}
-                <button class="btn btn-signup right" type="submit">{% trans "Sign In" %}</button>
-            </form>
+</section>
+
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border-secondary">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="forgotPasswordLabel">{% trans "Password Reset" %}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{% trans "To reset your password, please contact an administrator. They will assist you in regaining access to your account." %}</p>
+                <p class="mb-0">{% trans "Thank you for your patience!" %}</p>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
