@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'cloudinary',
     'newsblog',
+    'home',
     'about'
 ]
 
