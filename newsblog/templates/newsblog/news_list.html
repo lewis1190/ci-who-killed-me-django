@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="overlay"></div>
+
+  <div class="container position-relative z-1 pt-5">
+    <div class="row g-4">
+      <!-- HEADER -->
+      <div class="col-12">
+        <div class="glass-card mb-4">
+          <h1 class="fw-bold mb-3">Latest News</h1>
+          <p class="text-secondary">
+            Stay up-to-date with the latest anti-cheat developments, community updates, and gaming news from around the world.
+          </p>
+        </div>
+      </div>
+
+      <!-- NEWS ARTICLES GRID -->
+      <div class="col-12">
+        <div class="row g-4">
+          <!-- ARTICLE CARD 1 -->
+          <div class="col-lg-6 col-xl-4">
+            <div class="glass-card h-100 d-flex flex-column">
+              <img src="https://placehold.co/400x200" alt="News Article" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <h5 class="fw-bold mb-2">New Anti-Cheat System Deployed Globally</h5>
+              <small class="text-secondary mb-3">January 18, 2026</small>
+              <p class="text-secondary flex-grow-1 mb-3">
+                Enhanced detection algorithms featuring AI-powered analysis are now active across all gaming servers worldwide. Early reports show a 45% increase in cheat detection accuracy.
+              </p>
+              <a href="1" class="btn btn-success btn-sm align-self-start">Read More</a>
+            </div>
+          </div>
+
+          <!-- ARTICLE CARD 2 -->
+          <div class="col-lg-6 col-xl-4">
+            <div class="glass-card h-100 d-flex flex-column">
+              <img src="https://placehold.co/400x200" alt="News Article" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <h5 class="fw-bold mb-2">500+ Cheaters Banned This Week</h5>
+              <small class="text-secondary mb-3">January 17, 2026</small>
+              <p class="text-secondary flex-grow-1 mb-3">
+                Our community reporting system has reached a milestone. Record number of accounts removed for suspicious activity. Community vigilance makes a real difference!
+              </p>
+              <a href="#" class="btn btn-success btn-sm align-self-start">Read More</a>
+            </div>
+          </div>
+
+          <!-- ARTICLE CARD 3 -->
+          <div class="col-lg-6 col-xl-4">
+            <div class="glass-card h-100 d-flex flex-column">
+              <img src="https://placehold.co/400x200" alt="News Article" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <h5 class="fw-bold mb-2">Community Tournament Announced</h5>
+              <small class="text-secondary mb-3">January 16, 2026</small>
+              <p class="text-secondary flex-grow-1 mb-3">
+                A massive fair-play championship with anti-cheat verification required for all participants. $50,000 prize pool announced for the inaugural event.
+              </p>
+              <a href="#" class="btn btn-success btn-sm align-self-start">Read More</a>
+            </div>
+          </div>
+
+          <!-- ARTICLE CARD 4 -->
+          <div class="col-lg-6 col-xl-4">
+            <div class="glass-card h-100 d-flex flex-column">
+              <img src="https://placehold.co/400x200" alt="News Article" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <h5 class="fw-bold mb-2">Partnership with Major Gaming Studios</h5>
+              <small class="text-secondary mb-3">January 15, 2026</small>
+              <p class="text-secondary flex-grow-1 mb-3">
+                We're thrilled to announce partnerships with industry-leading game developers to integrate our anti-cheat technology directly into their platforms.
+              </p>
+              <a href="#" class="btn btn-success btn-sm align-self-start">Read More</a>
+            </div>
+          </div>
+
+          <!-- ARTICLE CARD 5 -->
+          <div class="col-lg-6 col-xl-4">
+            <div class="glass-card h-100 d-flex flex-column">
+              <img src="https://placehold.co/400x200" alt="News Article" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <h5 class="fw-bold mb-2">Machine Learning Model Improvements</h5>
+              <small class="text-secondary mb-3">January 14, 2026</small>
+              <p class="text-secondary flex-grow-1 mb-3">
+                Our latest ML model update reduces false positives by 60% while maintaining 99% cheat detection rate. Real players can game worry-free now.
+              </p>
+              <a href="#" class="btn btn-success btn-sm align-self-start">Read More</a>
+            </div>
+          </div>
+
+          <!-- ARTICLE CARD 6 -->
+          <div class="col-lg-6 col-xl-4">
+            <div class="glass-card h-100 d-flex flex-column">
+              <img src="https://placehold.co/400x200" alt="News Article" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <h5 class="fw-bold mb-2">Player Spotlight: Community Heroes</h5>
+              <small class="text-secondary mb-3">January 13, 2026</small>
+              <p class="text-secondary flex-grow-1 mb-3">
+                Celebrating the top community reporters who've contributed hundreds of verified reports this month. Your dedication keeps gaming fair for everyone.
+              </p>
+              <a href="#" class="btn btn-success btn-sm align-self-start">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="col-12 mt-4">
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item active"><a class="page-link bg-success border-success" href="#">1</a></li>
+            <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
+            <li class="page-item"><a class="page-link text-success" href="#">3</a></li>
+            <li class="page-item"><a class="page-link text-success" href="#">Next</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block copyright %}
+Copyright 2023 by Lewis Kosztan
+{% endblock copyright %}
