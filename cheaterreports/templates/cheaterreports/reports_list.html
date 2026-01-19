@@ -105,9 +105,11 @@
               </div>
 
               <!-- VIEW BUTTON -->
-              <a href="{% url 'report_detail' report_id=report.id %}" class="btn btn-success btn-sm">
-                <i class="fas fa-external-link-alt me-1"></i>View Full Report
-              </a>
+              <div class="text-end">
+                <a href="{% url 'report_detail' report_id=report.id %}" class="btn btn-success btn-sm">
+                  <i class="fas fa-external-link-alt me-1"></i>View Full Report
+                </a>
+              </div>
             </div>
 
           </div>

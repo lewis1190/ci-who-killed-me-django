@@ -323,3 +323,11 @@ textarea.form-control:disabled {
     white-space: nowrap;
   }
 }
+
+/* User Profile Report Description Two-Line Clamp */
+.report-description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
