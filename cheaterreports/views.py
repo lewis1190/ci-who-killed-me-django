@@ -1,17 +1,34 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .models import CheaterPost
 
 # Create your views here.
 
 
-# def top_reports(request):
-#     return render(request, 'cheaterreports/top_reports.html')
+def list_reports(request):
+    # Get all reports, ordered by most recent
+    reports = CheaterPost.objects.all().order_by('-created_on')
 
+    # Get the search query from the URL parameter
+    suspect_query = request.GET.get('suspect', '').strip()
 
-# def reports_by_username(request):
-#     return render(request, 'cheaterreports/reports_by_username.html')
+    # Filter by suspect username if provided
+    if suspect_query:
+        reports = reports.filter(suspect_username__icontains=suspect_query)
+
+    # Pagination (10 reports per page)
+    paginator = Paginator(reports, 10)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'reports': page_obj.object_list,
+        'suspect_query': suspect_query,
+    }
+    return render(request, 'cheaterreports/reports_list.html', context)
 
 
 @login_required

@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load cheaterreports_filters %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="overlay"></div>
+
+  <div class="container position-relative z-1 pt-5">
+    <div class="row g-4">
+
+      <div class="col-12">
+        <div class="glass-card mb-4">
+          <h1 class="fw-bold mb-3">Cheater Reports</h1>
+          <p class="text-secondary">
+            Browse all reported cheaters and review community evidence.
+          </p>
+        </div>
+      </div>
+
+      <!-- SEARCH BAR -->
+      <div class="col-12">
+        <div class="glass-card mb-4">
+          <form method="GET" class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search for cheater reports..." name="suspect" value="{{ suspect_query }}" />
+            <button class="btn btn-success px-4" type="submit">Search</button>
+            {% if suspect_query %}
+            <a href="{% url 'list_reports' %}" class="btn btn-outline-secondary px-4">Clear</a>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- REPORTS LIST -->
+      <div class="col-12">
+        {% if reports %}
+        {% for report in reports %}
+        <div class="glass-card mb-3">
+          <div class="row g-3 align-items-start">
+
+            <!-- REPORT THUMBNAIL -->
+            <div class="col-12 col-md-4 col-lg-3">
+              <div style="aspect-ratio: 4/3; background-color: #1a1a1a; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/0.jpg" alt="Youtube thumbnail for report titled: {{ report.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+              </div>
+            </div>
+
+            <!-- REPORT INFO -->
+            <div class="col-12 col-md-8 col-lg-9">
+              <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="flex-grow-1">
+                  <h5 class="fw-bold text-white mb-1">{{ report.title }}</h5>
+                  <p class="text-muted small mb-0">Report ID: #RPT-{{ report.created_on.year }}-{{ report.id|stringformat:"06d" }}</p>
+                </div>
+                <small class="text-secondary">{{ report.created_on|date:"M d, Y" }}</small>
+              </div>
+
+              <div class="row g-3 mb-3">
+                <div class="col-sm-6 col-md-3">
+                  <small class="text-muted d-block mb-1">Suspect</small>
+                  <p class="text-white fw-bold small mb-0">{{ report.suspect_username }}</p>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <small class="text-muted d-block mb-1">Game</small>
+                  <p class="text-white fw-bold small mb-0">{{ report.game_name }}</p>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <small class="text-muted d-block mb-1">Reporter</small>
+                  <p class="text-white fw-bold small mb-0">{{ report.author.username }}</p>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <small class="text-muted d-block mb-1">Hack Types</small>
+                  <p class="text-white fw-bold small mb-0">{{ report.suspected_hack_types|length }} detected</p>
+                </div>
+              </div>
+
+              <p class="text-secondary small mb-3" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis;">
+                {{ report.description|truncatewords:30 }}
+              </p>
+
+              <!-- HACK TYPE BADGES -->
+              <div class="mb-3">
+                <div class="d-flex flex-wrap gap-2">
+                  {% if 'aimbot' in report.suspected_hack_types %}
+                  <span class="badge bg-danger">Aimbot</span>
+                  {% endif %}
+                  {% if 'esp' in report.suspected_hack_types %}
+                  <span class="badge bg-danger">ESP</span>
+                  {% endif %}
+                  {% if 'wallhack' in report.suspected_hack_types %}
+                  <span class="badge bg-danger">Wallhack</span>
+                  {% endif %}
+                  {% if 'speedhack' in report.suspected_hack_types %}
+                  <span class="badge bg-danger">Speed Hack</span>
+                  {% endif %}
+                  {% if 'noclip' in report.suspected_hack_types %}
+                  <span class="badge bg-danger">No Clip</span>
+                  {% endif %}
+                  {% if 'other' in report.suspected_hack_types %}
+                  <span class="badge bg-danger">Other</span>
+                  {% endif %}
+                </div>
+              </div>
+
+              <!-- VIEW BUTTON -->
+              <a href="{% url 'report_detail' report_id=report.id %}" class="btn btn-success btn-sm">
+                <i class="fas fa-external-link-alt me-1"></i>View Full Report
+              </a>
+            </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+        <!-- PAGINATION -->
+        {% if page_obj.has_other_pages %}
+        <nav aria-label="Page navigation" class="mt-4 mb-4">
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page=1{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">First</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">Previous</a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
+              <a class="page-link" href="?page={{ num }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">{{ num }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">Next</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">Last</a>
+              </li>
+              {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+
+        {% else %}
+        <div class="glass-card text-center py-5">
+          <i class="fas fa-search text-muted" style="font-size: 3rem; margin-bottom: 1rem; display: block;"></i>
+          <h5 class="text-white fw-bold mb-2">No Reports Found</h5>
+          <p class="text-secondary mb-0">
+            {% if suspect_query %}
+            No reports found for "{{ suspect_query }}". Try a different search.
+            {% else %}
+            No reports have been submitted yet. <a href="{% url 'new_report' %}" class="text-success">Report a cheater now!</a>
+            {% endif %}
+          </p>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
