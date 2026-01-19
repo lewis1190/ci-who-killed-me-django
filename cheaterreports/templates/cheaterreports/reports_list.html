@@ -52,7 +52,7 @@
               <div class="d-flex justify-content-between align-items-start mb-3">
                 <div class="flex-grow-1">
                   <h5 class="fw-bold text-white mb-1">{{ report.title }}</h5>
-                  <p class="text-muted small mb-0">Report ID: #RPT-{{ report.created_on.year }}-{{ report.id|stringformat:"06d" }}</p>
+                  <p class="text-muted small mb-0">Report ID: #HKM-{{ report.created_on.year }}-{{ report.id }}</p>
                 </div>
                 <small class="text-secondary">{{ report.created_on|date:"M d, Y" }}</small>
               </div>

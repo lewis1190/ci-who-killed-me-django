@@ -28,7 +28,7 @@
           <div class="d-flex justify-content-between align-items-start mb-3">
             <div>
               <h2 class="fw-bold text-white mb-2">{{ report.title }}</h2>
-              <p class="text-muted mb-0">Report ID: #RPT-{{ report.created_on.year }}-{{ report.id|stringformat:"06d" }}</p>
+              <p class="text-muted mb-0">Report ID: #HKM-{{ report.created_on.year }}-{{ report.id }}</p>
             </div>
           </div>
 
@@ -213,7 +213,7 @@
 
           <div class="mb-3">
             <small class="text-muted d-block mb-1">Report ID</small>
-            <p class="text-white small mb-0">#RPT-{{ report.created_on.year }}-{{ report.id|stringformat:"06d" }}</p>
+            <p class="text-white small mb-0">#HKM-{{ report.created_on.year }}-{{ report.id }}</p>
           </div>
 
           <div class="mb-3">
