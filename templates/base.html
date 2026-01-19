@@ -8,6 +8,7 @@
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
 {% url 'new_report' as new_report_url %}
+{% url 'list_reports' as list_reports_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +46,7 @@
           <li class="nav-item"><a class="nav-link {% if request.path == about_url %}active aria-current='page' {% endif %}" href="{{ about_url }}">About Us</a></li>
           <li class="nav-item"><a class="nav-link {% if '/news' in request.path %}active aria-current='page' {% endif %}" href="{{ news_url }}">News</a></li>
           <li class="nav-item"><a class="nav-link {% if request.path == new_report_url %}active aria-current='page' {% endif %}" href="{{ new_report_url }}">Report a Cheater</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.path == list_reports_url %}active aria-current='page' {% endif %}" href="{{ list_reports_url }}">View Reports</a></li>
         </ul>
 
         <div class="d-flex gap-2">

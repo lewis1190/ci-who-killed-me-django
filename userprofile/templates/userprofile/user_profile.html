@@ -164,6 +164,7 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <form method="POST" action="{% url 'delete_report' report_id=report.id %}" style="display: inline;">
           {% csrf_token %}
+          <input type="hidden" name="next" value="user_profile">
           <button type="submit" class="btn btn-danger">Delete Report</button>
         </form>
       </div>

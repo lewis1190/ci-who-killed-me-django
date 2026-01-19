@@ -24,53 +24,45 @@
           <h3 class="text-success mb-4">{% if is_edit %}Update Report{% else %}Submit Your Report{% endif %}</h3>
           <p class="text-muted mb-5">{% if is_edit %}Make any necessary changes to your report.{% else %}Include video evidence if available. All submissions are reviewed by our moderation team.{% endif %}</p>
 
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endfor %}
-          {% endif %}
-
           <form method="POST">
             {% csrf_token %}
 
             <!-- Title -->
             <div class="mb-4">
-              <label for="title" class="form-label">Report Title</label>
-              <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Aimbots in Team Deathmatch" value="{% if report %}{{ report.title }}{% endif %}" required>
+              <label for="title" class="form-label">Report Title <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Aimbots in Team Deathmatch" value="{% if form_data.title %}{{ form_data.title }}{% elif report %}{{ report.title }}{% endif %}" required>
               <small class="text-muted">A brief summary of the incident</small>
             </div>
 
             <!-- Suspect Username -->
             <div class="mb-4">
-              <label for="suspect_username" class="form-label">Suspect Username</label>
-              <input type="text" class="form-control" id="suspect_username" name="suspect_username" placeholder="Enter the player's username" value="{% if report %}{{ report.suspect_username }}{% endif %}" required>
+              <label for="suspect_username" class="form-label">Suspect Username <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="suspect_username" name="suspect_username" placeholder="Enter the player's username" value="{% if form_data.suspect_username %}{{ form_data.suspect_username }}{% elif report %}{{ report.suspect_username }}{% endif %}" required>
               <small class="text-muted">The in-game username of the suspected cheater</small>
             </div>
 
             <!-- Game Name -->
             <div class="mb-4">
-              <label for="game_name" class="form-label">Game Name</label>
-              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="e.g., Call of Duty: Warzone" value="{% if report %}{{ report.game_name }}{% endif %}" required>
+              <label for="game_name" class="form-label">Game Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="e.g., Call of Duty: Warzone" value="{% if form_data.game_name %}{{ form_data.game_name }}{% elif report %}{{ report.game_name }}{% endif %}" required>
               <small class="text-muted">Which game did this occur in?</small>
             </div>
 
             <!-- YouTube URL -->
             <div class="mb-4">
-              <label for="youtube_url" class="form-label">YouTube URL (Optional)</label>
-              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." value="{% if report %}{{ report.youtube_url }}{% endif %}">
+              <label for="youtube_url" class="form-label">YouTube URL <span class="text-danger">*</span></label>
+              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." value="{% if form_data.youtube_url %}{{ form_data.youtube_url }}{% elif report %}{{ report.youtube_url }}{% endif %}" required>
               <small class="text-muted">Link to video evidence of the suspected cheating</small>
             </div>
 
             <!-- Suspected Hack Types -->
+            <!-- TODO: Lots of repeated code here. Could be great to squash this down into a loop-render -->
             <div class="mb-4">
-              <label class="form-label d-block mb-3">Suspected Hack Types</label>
+              <label class="form-label d-block mb-3">Suspected Hack Types <span class="text-danger">*</span></label>
               <div class="row g-3">
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="aimbot" name="hack_types" value="aimbot" {% if report and 'aimbot' in report.suspected_hack_types %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="aimbot" name="hack_types" value="aimbot" {% if form_data.hack_types and 'aimbot' in form_data.hack_types %}checked{% elif report and 'aimbot' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="aimbot">
                       Aimbot
                     </label>
@@ -78,7 +70,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="wallhack" name="hack_types" value="wallhack" {% if report and 'wallhack' in report.suspected_hack_types %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="wallhack" name="hack_types" value="wallhack" {% if form_data.hack_types and 'wallhack' in form_data.hack_types %}checked{% elif report and 'wallhack' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="wallhack">
                       Wallhack
                     </label>
@@ -86,7 +78,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="speedhack" name="hack_types" value="speedhack" {% if report and 'speedhack' in report.suspected_hack_types %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="speedhack" name="hack_types" value="speedhack" {% if form_data.hack_types and 'speedhack' in form_data.hack_types %}checked{% elif report and 'speedhack' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="speedhack">
                       Speed Hack
                     </label>
@@ -94,7 +86,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="noclip" name="hack_types" value="noclip" {% if report and 'noclip' in report.suspected_hack_types %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="noclip" name="hack_types" value="noclip" {% if form_data.hack_types and 'noclip' in form_data.hack_types %}checked{% elif report and 'noclip' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="noclip">
                       No-Clip
                     </label>
@@ -102,7 +94,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="esp" name="hack_types" value="esp" {% if report and 'esp' in report.suspected_hack_types %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="esp" name="hack_types" value="esp" {% if form_data.hack_types and 'esp' in form_data.hack_types %}checked{% elif report and 'esp' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="esp">
                       ESP
                     </label>
@@ -110,7 +102,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="other" name="hack_types" value="other" {% if report and 'other' in report.suspected_hack_types %}checked{% endif %}>
+                    <input class="form-check-input" type="checkbox" id="other" name="hack_types" value="other" {% if form_data.hack_types and 'other' in form_data.hack_types %}checked{% elif report and 'other' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="other">
                       Other
                     </label>
@@ -122,8 +114,8 @@
 
             <!-- Description -->
             <div class="mb-4">
-              <label for="description" class="form-label">Detailed Description</label>
-              <textarea class="form-control" id="description" name="description" rows="6" placeholder="Describe what you observed. Include timestamps, locations, and specific suspicious behavior." required>{% if report %}{{ report.description }}{% endif %}</textarea>
+              <label for="description" class="form-label">Detailed Description <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="description" name="description" rows="6" placeholder="Describe what you observed. Include timestamps, locations, and specific suspicious behavior." required>{% if form_data.description %}{{ form_data.description }}{% elif report %}{{ report.description }}{% endif %}</textarea>
               <small class="text-muted">Provide as much detail as possible to help our investigation team</small>
             </div>
 
