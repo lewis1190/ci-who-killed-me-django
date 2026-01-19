@@ -11,9 +11,9 @@
 
       <div class="col-12">
         <div class="glass-card mb-4">
-          <h1 class="fw-bold mb-3">Report a Cheater</h1>
+          <h1 class="fw-bold mb-3">{% if is_edit %}Edit Report{% else %}Report a Cheater{% endif %}</h1>
           <p class="text-secondary">
-            Help us keep gaming fair for everyone. Provide as much detail as possible to help our investigation team.
+            {% if is_edit %}Update the details of your cheater report.{% else %}Help us keep gaming fair for everyone. Provide as much detail as possible to help our investigation team.{% endif %}
           </p>
         </div>
       </div>
@@ -21,37 +21,46 @@
       <!-- FORM CARD -->
       <div class="col-lg-8">
         <div class="glass-card">
-          <h3 class="text-success mb-4">Submit Your Report</h3>
-          <p class="text-muted mb-5">Include video evidence if available. All submissions are reviewed by our moderation team.</p>
+          <h3 class="text-success mb-4">{% if is_edit %}Update Report{% else %}Submit Your Report{% endif %}</h3>
+          <p class="text-muted mb-5">{% if is_edit %}Make any necessary changes to your report.{% else %}Include video evidence if available. All submissions are reviewed by our moderation team.{% endif %}</p>
 
-          <form method="POST" enctype="multipart/form-data">
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          <form method="POST">
             {% csrf_token %}
 
             <!-- Title -->
             <div class="mb-4">
               <label for="title" class="form-label">Report Title</label>
-              <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Aimbots in Team Deathmatch" required>
+              <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Aimbots in Team Deathmatch" value="{% if report %}{{ report.title }}{% endif %}" required>
               <small class="text-muted">A brief summary of the incident</small>
             </div>
 
             <!-- Suspect Username -->
             <div class="mb-4">
               <label for="suspect_username" class="form-label">Suspect Username</label>
-              <input type="text" class="form-control" id="suspect_username" name="suspect_username" placeholder="Enter the player's username" required>
+              <input type="text" class="form-control" id="suspect_username" name="suspect_username" placeholder="Enter the player's username" value="{% if report %}{{ report.suspect_username }}{% endif %}" required>
               <small class="text-muted">The in-game username of the suspected cheater</small>
             </div>
 
             <!-- Game Name -->
             <div class="mb-4">
               <label for="game_name" class="form-label">Game Name</label>
-              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="e.g., Call of Duty: Warzone" required>
+              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="e.g., Call of Duty: Warzone" value="{% if report %}{{ report.game_name }}{% endif %}" required>
               <small class="text-muted">Which game did this occur in?</small>
             </div>
 
             <!-- YouTube URL -->
             <div class="mb-4">
               <label for="youtube_url" class="form-label">YouTube URL (Optional)</label>
-              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=...">
+              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." value="{% if report %}{{ report.youtube_url }}{% endif %}">
               <small class="text-muted">Link to video evidence of the suspected cheating</small>
             </div>
 
@@ -61,49 +70,49 @@
               <div class="row g-3">
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="aimbot" name="hack_types" value="aimbot">
+                    <input class="form-check-input" type="checkbox" id="aimbot" name="hack_types" value="aimbot" {% if report and 'aimbot' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="aimbot">
-                      Aimbot Placeholder
+                      Aimbot
                     </label>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="wallhack" name="hack_types" value="wallhack">
+                    <input class="form-check-input" type="checkbox" id="wallhack" name="hack_types" value="wallhack" {% if report and 'wallhack' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="wallhack">
-                      Wallhack Placeholder
+                      Wallhack
                     </label>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="speedhack" name="hack_types" value="speedhack">
+                    <input class="form-check-input" type="checkbox" id="speedhack" name="hack_types" value="speedhack" {% if report and 'speedhack' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="speedhack">
-                      Speed Hack Placeholder
+                      Speed Hack
                     </label>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="noclip" name="hack_types" value="noclip">
+                    <input class="form-check-input" type="checkbox" id="noclip" name="hack_types" value="noclip" {% if report and 'noclip' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="noclip">
-                      No-Clip Placeholder
+                      No-Clip
                     </label>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="esp" name="hack_types" value="esp">
+                    <input class="form-check-input" type="checkbox" id="esp" name="hack_types" value="esp" {% if report and 'esp' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="esp">
-                      ESP Placeholder
+                      ESP
                     </label>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="other" name="hack_types" value="other">
+                    <input class="form-check-input" type="checkbox" id="other" name="hack_types" value="other" {% if report and 'other' in report.suspected_hack_types %}checked{% endif %}>
                     <label class="form-check-label" for="other">
-                      Other Placeholder
+                      Other
                     </label>
                   </div>
                 </div>
@@ -114,16 +123,16 @@
             <!-- Description -->
             <div class="mb-4">
               <label for="description" class="form-label">Detailed Description</label>
-              <textarea class="form-control" id="description" name="description" rows="6" placeholder="Describe what you observed. Include timestamps, locations, and specific suspicious behavior." required></textarea>
+              <textarea class="form-control" id="description" name="description" rows="6" placeholder="Describe what you observed. Include timestamps, locations, and specific suspicious behavior." required>{% if report %}{{ report.description }}{% endif %}</textarea>
               <small class="text-muted">Provide as much detail as possible to help our investigation team</small>
             </div>
 
             <!-- Submit and Cancel Buttons -->
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-success">
-                <i class="fas fa-paper-plane me-2"></i>Submit Report
+                <i class="fas fa-paper-plane me-2"></i>{% if is_edit %}Update Report{% else %}Submit Report{% endif %}
               </button>
-              <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+              <a href="{% if is_edit %}{% url 'report_detail' report_id=report.id %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-outline-secondary">
                 <i class="fas fa-times me-2"></i>Cancel
               </a>
             </div>
