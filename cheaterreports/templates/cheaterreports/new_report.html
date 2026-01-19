@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="overlay"></div>
+
+  <div class="container position-relative z-1 pt-5">
+    <div class="row g-4 align-items-start">
+
+      <div class="col-12">
+        <div class="glass-card mb-4">
+          <h1 class="fw-bold mb-3">Report a Cheater</h1>
+          <p class="text-secondary">
+            Help us keep gaming fair for everyone. Provide as much detail as possible to help our investigation team.
+          </p>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="col-lg-8">
+        <div class="glass-card">
+          <h3 class="text-success mb-4">Submit Your Report</h3>
+          <p class="text-muted mb-5">Include video evidence if available. All submissions are reviewed by our moderation team.</p>
+
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title -->
+            <div class="mb-4">
+              <label for="title" class="form-label">Report Title</label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Aimbots in Team Deathmatch" required>
+              <small class="text-muted">A brief summary of the incident</small>
+            </div>
+
+            <!-- Suspect Username -->
+            <div class="mb-4">
+              <label for="suspect_username" class="form-label">Suspect Username</label>
+              <input type="text" class="form-control" id="suspect_username" name="suspect_username" placeholder="Enter the player's username" required>
+              <small class="text-muted">The in-game username of the suspected cheater</small>
+            </div>
+
+            <!-- Game Name -->
+            <div class="mb-4">
+              <label for="game_name" class="form-label">Game Name</label>
+              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="e.g., Call of Duty: Warzone" required>
+              <small class="text-muted">Which game did this occur in?</small>
+            </div>
+
+            <!-- YouTube URL -->
+            <div class="mb-4">
+              <label for="youtube_url" class="form-label">YouTube URL (Optional)</label>
+              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=...">
+              <small class="text-muted">Link to video evidence of the suspected cheating</small>
+            </div>
+
+            <!-- Suspected Hack Types -->
+            <div class="mb-4">
+              <label class="form-label d-block mb-3">Suspected Hack Types</label>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="aimbot" name="hack_types" value="aimbot">
+                    <label class="form-check-label" for="aimbot">
+                      Aimbot Placeholder
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wallhack" name="hack_types" value="wallhack">
+                    <label class="form-check-label" for="wallhack">
+                      Wallhack Placeholder
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="speedhack" name="hack_types" value="speedhack">
+                    <label class="form-check-label" for="speedhack">
+                      Speed Hack Placeholder
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="noclip" name="hack_types" value="noclip">
+                    <label class="form-check-label" for="noclip">
+                      No-Clip Placeholder
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="esp" name="hack_types" value="esp">
+                    <label class="form-check-label" for="esp">
+                      ESP Placeholder
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="other" name="hack_types" value="other">
+                    <label class="form-check-label" for="other">
+                      Other Placeholder
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <small class="text-muted d-block mt-2">Select all that apply</small>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <label for="description" class="form-label">Detailed Description</label>
+              <textarea class="form-control" id="description" name="description" rows="6" placeholder="Describe what you observed. Include timestamps, locations, and specific suspicious behavior." required></textarea>
+              <small class="text-muted">Provide as much detail as possible to help our investigation team</small>
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-paper-plane me-2"></i>Submit Report
+              </button>
+              <a href="{% url 'home' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- INFO CARD SIDEBAR -->
+      <div class="col-lg-4">
+        <div class="glass-card mb-4">
+          <h4 class="fw-bold mb-3">📋 What to Include</h4>
+
+          <div class="mb-3">
+            <h6 class="text-success mb-2">Timestamps</h6>
+            <p class="text-secondary mb-0 small">Note when you observed the suspicious behavior</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="text-success mb-2">Locations</h6>
+            <p class="text-secondary mb-0 small">Mention specific maps or game areas</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="text-success mb-2">Actions</h6>
+            <p class="text-secondary mb-0 small">Describe what the player did that seemed suspicious</p>
+          </div>
+
+          <div>
+            <h6 class="text-success mb-2">Video Evidence</h6>
+            <p class="text-secondary mb-0 small">Links to YouTube or other video platforms</p>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h4 class="fw-bold mb-3">⚠️ Important Notes</h4>
+          <p class="text-muted small mb-3">
+            False reports may result in account restrictions. Only report genuine suspected cheating.
+          </p>
+          <p class="text-muted small mb-0">
+            <i class="fas fa-shield-alt me-1 text-success"></i>All submissions are reviewed by our moderation team and handled confidentially.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -71,8 +71,12 @@ INSTALLED_APPS = [
     'newsblog',
     'home',
     'about',
-    'userprofile'
+    'userprofile',
+    'cheaterreports',
 ]
+
+# To allow YouTube videos to be embedded properly
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
