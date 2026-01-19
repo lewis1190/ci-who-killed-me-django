@@ -22,6 +22,58 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* DROPDOWN MENU */
+.dropdown-menu {
+  background-color: rgba(10, 15, 25, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.dropdown-menu .dropdown-item {
+  color: #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: rgba(46, 204, 113, 0.2);
+  color: #2ecc71;
+}
+
+.dropdown-divider {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* DROPDOWN TOGGLE BUTTON */
+.dropdown-toggle {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #2ecc71;
+}
+
+.dropdown-toggle::after {
+  border-top-color: #e0e0e0;
+}
+
+.dropdown-toggle:focus {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #2ecc71;
+  box-shadow: none;
+}
+
+.dropdown-toggle.show {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #2ecc71;
+}
+
 /* HERO */
 .hero-section {
   position: relative;
@@ -126,6 +178,15 @@ textarea.form-control:focus {
   color: #fff;
   border-color: #2ecc71;
   box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+.form-control:disabled,
+.form-select:disabled,
+textarea.form-control:disabled {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 .form-check-input {
