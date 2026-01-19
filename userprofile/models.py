@@ -6,7 +6,8 @@ from cloudinary.models import CloudinaryField
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
+                                related_name='profile')
     profile_picture = CloudinaryField('image', blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
 

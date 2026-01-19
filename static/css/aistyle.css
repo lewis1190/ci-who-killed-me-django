@@ -77,7 +77,7 @@ body {
 /* HERO */
 .hero-section {
   position: relative;
-  min-height: calc(100vh - 90px); // 90px is the footer height
+  min-height: calc(100vh - 90px); /* 90px is the footer height */
   padding-top: 120px;
   padding-bottom: 60px;
 }

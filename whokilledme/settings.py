@@ -163,6 +163,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
+# AllAuth Override - Create user profile on signup
+ACCOUNT_FORMS = {
+    'signup': 'userprofile.forms.CreateUserProfileWithAccountForm'
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
