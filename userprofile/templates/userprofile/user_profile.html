@@ -146,28 +146,28 @@
             <ul class="pagination justify-content-center">
               {% if page_obj.has_previous %}
               <li class="page-item">
-                <a class="page-link" href="?page=1" aria-label="First">
-                  <span aria-hidden="true">&laquo;</span> First
+                <a class="page-link text-success bg-transparent border-success" href="?page=1" aria-label="First">
+                  <strong><span aria-hidden="true">&laquo;</span>&nbsp;First</strong>
                 </a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.previous_page_number }}"><strong>Previous</strong></a>
               </li>
               {% endif %}
 
               {% for num in page_obj.paginator.page_range %}
               <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                <a class="page-link border-success {% if page_obj.number == num %}bg-success text-light{% else %}bg-transparent text-success{% endif %}" href="?page={{ num }}"><strong>{{ num }}</strong></a>
               </li>
               {% endfor %}
 
               {% if page_obj.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.next_page_number }}"><strong>Next</strong></a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
-                  Last <span aria-hidden="true">&raquo;</span>
+                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                  <strong>Last&nbsp;<span aria-hidden="true">&raquo;</span></strong>
                 </a>
               </li>
               {% endif %}
