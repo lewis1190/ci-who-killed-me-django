@@ -52,7 +52,8 @@
         <div class="d-flex gap-2">
           {% if user.is_authenticated %}
           <div class="dropdown">
-            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+              <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
               Hello {{ user }}!
             </button>
             <ul class="dropdown-menu dropdown-menu-end">

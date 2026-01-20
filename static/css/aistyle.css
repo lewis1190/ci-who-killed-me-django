@@ -331,3 +331,10 @@ textarea.form-control:disabled {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Text Truncation for Single Line */
+.text-truncate-single {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

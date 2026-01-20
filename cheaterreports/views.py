@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpRequest, JsonResponse
+from django.utils import timezone
+from datetime import timedelta
 from typing import cast
 from .models import CheaterPost, Vote
 from userprofile.models import UserProfile
@@ -11,15 +13,31 @@ from userprofile.models import UserProfile
 
 
 def list_reports(request: HttpRequest):
-    # Get all reports, ordered by most recent
-    reports = CheaterPost.objects.all().order_by('-created_on')
-
     # Get the search query from the URL parameter
     suspect_query = request.GET.get('suspect', '').strip()
+    # Get the sort preference (default to 'top' for no search query)
+    sort_by = request.GET.get('sort', 'top')
 
-    # Filter by suspect username if provided
+    # Start with base queryset
     if suspect_query:
-        reports = reports.filter(suspect_username__icontains=suspect_query)
+        # Filter by suspect username if provided
+        reports = CheaterPost.objects.filter(
+            suspect_username__icontains=suspect_query
+        )
+    else:
+        # No search query, use full queryset
+        reports = CheaterPost.objects.all()
+
+    # Apply sort preference
+    one_month_ago = timezone.now() - timedelta(days=30)
+    if sort_by == 'recent':
+        # Most recent (all time)
+        reports = reports.order_by('-created_on')
+    else:
+        # Top posts from last 30 days (default)
+        reports = reports.filter(
+            created_on__gte=one_month_ago
+        ).order_by('-score')
 
     # Pagination (10 reports per page)
     paginator = Paginator(reports, 10)
@@ -30,6 +48,7 @@ def list_reports(request: HttpRequest):
         'page_obj': page_obj,
         'reports': page_obj.object_list,
         'suspect_query': suspect_query,
+        'sort_by': sort_by,
     }
     return render(request, 'cheaterreports/reports_list.html', context)
 

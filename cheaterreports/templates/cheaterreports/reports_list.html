@@ -30,6 +30,19 @@
             <a href="{% url 'list_reports' %}" class="btn btn-outline-secondary px-4">Clear</a>
             {% endif %}
           </form>
+
+          <br>
+          <div class="d-flex align-items-center gap-3 justify-content-end">
+            <span class="text-secondary">Sort by:</span>
+            <div class="btn-group" role="group">
+              <a href="?sort=top" class="btn btn-sm {% if sort_by == 'top' %}btn-success{% else %}btn-outline-success{% endif %}">
+                <i class="fas fa-fire me-1"></i>Top Posts ~30 days
+              </a>
+              <a href="?sort=recent" class="btn btn-sm {% if sort_by == 'recent' %}btn-success{% else %}btn-outline-success{% endif %}">
+                <i class="fas fa-clock me-1"></i>Most Recent
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -67,19 +80,15 @@
               <div class="row g-3 mb-3">
                 <div class="col-sm-6 col-md-3">
                   <small class="text-muted d-block mb-1">Suspect</small>
-                  <p class="text-white fw-bold small mb-0">{{ report.suspect_username }}</p>
+                  <p class="text-white fw-bold small mb-0 text-truncate-single">{{ report.suspect_username }}</p>
                 </div>
                 <div class="col-sm-6 col-md-3">
                   <small class="text-muted d-block mb-1">Game</small>
-                  <p class="text-white fw-bold small mb-0">{{ report.game_name }}</p>
+                  <p class="text-white fw-bold small mb-0 text-truncate-single">{{ report.game_name }}</p>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                  <small class="text-muted d-block mb-1">Reporter</small>
-                  <p class="text-white fw-bold small mb-0">{{ report.author.username }}</p>
-                </div>
-                <div class="col-sm-6 col-md-3">
-                  <small class="text-muted d-block mb-1">Hack Types</small>
-                  <p class="text-white fw-bold small mb-0">{{ report.suspected_hack_types|length }} detected</p>
+                  <small class="text-muted d-block mb-1">Uploader</small>
+                  <p class="text-white fw-bold small mb-0 text-truncate-single">{{ report.author.username }}</p>
                 </div>
               </div>
 
@@ -89,6 +98,7 @@
 
               <!-- HACK TYPE BADGES -->
               <div class="mb-3">
+                <small class="text-muted d-block mb-1">Hacks Reported: </small>
                 <div class="d-flex flex-wrap gap-2">
                   {% if 'aimbot' in report.suspected_hack_types %}
                   <span class="badge bg-danger">Aimbot</span>
