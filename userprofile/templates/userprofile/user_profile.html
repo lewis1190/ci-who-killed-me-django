@@ -156,9 +156,13 @@
               {% endif %}
 
               {% for num in page_obj.paginator.page_range %}
-              <li class="page-item {% if page_obj.number == num %}active{% endif %}">
-                <a class="page-link border-success {% if page_obj.number == num %}bg-success text-light{% else %}bg-transparent text-success{% endif %}" href="?page={{ num }}"><strong>{{ num }}</strong></a>
+              {% if page_obj.number == num %}
+              <li class="page-item active"><span class="page-link border-success bg-success text-light"><strong>{{ num }}</strong></span></li>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <li class="page-item">
+                <a class="page-link border-success bg-transparent text-success" href="?page={{ num }}"><strong>{{ num }}</strong></a>
               </li>
+              {% endif %}
               {% endfor %}
 
               {% if page_obj.has_next %}

@@ -141,28 +141,28 @@
           <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
             <li class="page-item">
-              <a class="page-link" href="?page=1{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">First</a>
+              <a class="page-link text-success bg-transparent border-success" href="?page=1{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}"><strong><span aria-hidden="true">&laquo;</span>&nbsp;First</strong></a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">Previous</a>
+              <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.previous_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}"><strong>Previous</strong></a>
             </li>
             {% endif %}
 
             {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
-            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            <li class="page-item active"><span class="page-link border-success bg-success text-light"><strong>{{ num }}</strong></span></li>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
-              <a class="page-link" href="?page={{ num }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">{{ num }}</a>
+              <a class="page-link border-success bg-transparent text-success" href="?page={{ num }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}"><strong>{{ num }}</strong></a>
               </li>
               {% endif %}
               {% endfor %}
 
               {% if page_obj.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">Next</a>
+                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.next_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}"><strong>Next</strong></a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">Last</a>
+                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.paginator.num_pages }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}"><strong>Last&nbsp;<span aria-hidden="true">&raquo;</span></strong></a>
               </li>
               {% endif %}
           </ul>
