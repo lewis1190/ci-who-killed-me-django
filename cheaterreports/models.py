@@ -56,3 +56,24 @@ class Vote(models.Model):
     def __str__(self):
         vote_label = f"{self.user.username} voted {self.vote_type}"
         return f"{vote_label} on {self.post.title}"
+
+
+class Comment(models.Model):
+    """
+    Stores a single comment related to :model:`cheaterreports.CheaterPost` and
+     :model:`auth.User`.
+    """
+    post = models.ForeignKey(
+        CheaterPost, on_delete=models.CASCADE, related_name='comments'
+    )
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='commenter')
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_on']
+
+    def __str__(self):
+        return f"Comment by {self.author.username} on {self.post.title}"

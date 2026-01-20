@@ -6,7 +6,7 @@ from django.http import HttpRequest, JsonResponse
 from django.utils import timezone
 from datetime import timedelta
 from typing import cast
-from .models import CheaterPost, Vote
+from .models import CheaterPost, Vote, Comment
 from userprofile.models import UserProfile
 
 # Create your views here.
@@ -301,5 +301,97 @@ def vote_report(request: HttpRequest, report_id: int, vote_type: str):
             profile.save()
 
         messages.success(request, f'You have {vote_type}voted this report.')
+
+    return redirect('report_detail', report_id=report_id)
+
+
+@login_required
+def add_comment(request: HttpRequest, report_id: int):
+    """
+    Add a comment to a report.
+    """
+    report = get_object_or_404(CheaterPost, pk=report_id)
+
+    if request.method == 'POST':
+        body = request.POST.get('body', '').strip()
+
+        if not body:
+            messages.error(request, 'Comment cannot be empty.')
+            return redirect('report_detail', report_id=report_id)
+
+        try:
+            Comment.objects.create(
+                post=report,
+                author=request.user,
+                body=body
+            )
+            messages.success(request, 'Your comment has been posted!')
+        except Exception as e:
+            messages.error(
+                request,
+                f'An error occurred while posting your comment: {str(e)}'
+            )
+
+    return redirect('report_detail', report_id=report_id)
+
+
+@login_required
+def delete_comment(request: HttpRequest, comment_id: int):
+    """
+    Delete a comment if the user is the author.
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    report_id = comment.post.pk
+
+    # Check if the user is the author
+    if comment.author != request.user:
+        messages.error(
+            request, 'You do not have permission to delete this comment.'
+        )
+        return redirect('report_detail', report_id=report_id)
+
+    try:
+        comment.delete()
+        messages.success(request, 'Your comment has been deleted!')
+    except Exception as e:
+        messages.error(
+            request,
+            f'An error occurred while deleting your comment: {str(e)}'
+        )
+
+    return redirect('report_detail', report_id=report_id)
+
+
+@login_required
+def edit_comment(request: HttpRequest, comment_id: int):
+    """
+    Edit a comment if the user is the author.
+    """
+    comment = get_object_or_404(Comment, pk=comment_id)
+    report_id = comment.post.pk
+
+    # Check if the user is the author
+    if comment.author != request.user:
+        messages.error(
+            request, 'You do not have permission to edit this comment.'
+        )
+        return redirect('report_detail', report_id=report_id)
+
+    if request.method == 'POST':
+        body = request.POST.get('body', '').strip()
+
+        if not body:
+            messages.error(request, 'Comment cannot be empty.')
+            return redirect('report_detail', report_id=report_id)
+
+        try:
+            comment.body = body
+            comment.save()
+            messages.success(request, 'Your comment has been updated!')
+        except Exception as e:
+            messages.error(
+                request,
+                f'An error occurred while updating your comment: {str(e)}'
+            )
 
     return redirect('report_detail', report_id=report_id)
