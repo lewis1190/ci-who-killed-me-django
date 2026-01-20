@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import UserProfile
 from .forms import UserProfileForm
 from cheaterreports.models import CheaterPost
@@ -18,6 +19,8 @@ def profile(request):
         print(request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(
+                request, 'Your profile has been successfully updated!')
             return redirect('user_profile')
     else:
         form = UserProfileForm(instance=user_profile)

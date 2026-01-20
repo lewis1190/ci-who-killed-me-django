@@ -55,6 +55,12 @@
             <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
               <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
               Hello {{ user }}!
+              {% if user.is_superuser %}
+              <span class="text-danger">[Admin]</span>
+              {% endif %}
+              {% for group in user.groups.all %}
+              {% if group.name == "Moderator" and not user.is_superuser %} <span class="text-warning">[Mod]</span>{% endif %}
+              {% endfor %}
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="{% url 'user_profile' %}">View Profile</a></li>
@@ -76,14 +82,14 @@
 
   <!-- MESSAGES (TOAST STYLE) -->
   {% if messages %}
-    <div class="messages-container" style="position: fixed; top: 80px; right: 20px; z-index: 1050; max-width: 400px;">
-      {% for message in messages %}
-        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border-radius: 8px;">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endfor %}
+  <div class="messages-container" style="position: fixed; top: 80px; right: 20px; z-index: 1050; max-width: 400px;">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border-radius: 8px;">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    {% endfor %}
+  </div>
   {% endif %}
 
   {% block content %}
