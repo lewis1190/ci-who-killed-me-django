@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .models import UserProfile
 from .forms import UserProfileForm
 from cheaterreports.models import CheaterPost
@@ -30,9 +31,15 @@ def profile(request):
         '-created_on'
     )
 
+    # Paginate reports (5 per page)
+    paginator = Paginator(reports, 5)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'user_profile': user_profile,
         'form': form,
-        'reports': reports,
+        'page_obj': page_obj,
+        'reports': page_obj.object_list,
     }
     return render(request, 'userprofile/user_profile.html', context)

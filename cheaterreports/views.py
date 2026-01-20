@@ -39,8 +39,8 @@ def list_reports(request: HttpRequest):
             created_on__gte=one_month_ago
         ).order_by('-score')
 
-    # Pagination (10 reports per page)
-    paginator = Paginator(reports, 10)
+    # Pagination (5 reports per page)
+    paginator = Paginator(reports, 5)
     page_number = request.GET.get('page', 1)
     page_obj = paginator.get_page(page_number)
 

@@ -25,6 +25,7 @@
         <div class="glass-card mb-4">
           <form method="GET" class="input-group input-group-lg">
             <input type="text" class="form-control" placeholder="Search for cheater reports..." name="suspect" value="{{ suspect_query }}" />
+            <input type="hidden" name="sort" value="{{ sort_by }}" />
             <button class="btn btn-success px-4" type="submit">Search</button>
             {% if suspect_query %}
             <a href="{% url 'list_reports' %}" class="btn btn-outline-secondary px-4">Clear</a>
@@ -35,10 +36,10 @@
           <div class="d-flex align-items-center gap-3 justify-content-end">
             <span class="text-secondary">Sort by:</span>
             <div class="btn-group" role="group">
-              <a href="?sort=top" class="btn btn-sm {% if sort_by == 'top' %}btn-success{% else %}btn-outline-success{% endif %}">
+              <a href="?sort=top{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}" class="btn btn-sm {% if sort_by == 'top' %}btn-success{% else %}btn-outline-success{% endif %}">
                 <i class="fas fa-fire me-1"></i>Top Posts ~30 days
               </a>
-              <a href="?sort=recent" class="btn btn-sm {% if sort_by == 'recent' %}btn-success{% else %}btn-outline-success{% endif %}">
+              <a href="?sort=recent{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}" class="btn btn-sm {% if sort_by == 'recent' %}btn-success{% else %}btn-outline-success{% endif %}">
                 <i class="fas fa-clock me-1"></i>Most Recent
               </a>
             </div>
@@ -140,10 +141,10 @@
           <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
             <li class="page-item">
-              <a class="page-link" href="?page=1{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">First</a>
+              <a class="page-link" href="?page=1{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">First</a>
             </li>
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">Previous</a>
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">Previous</a>
             </li>
             {% endif %}
 
@@ -151,17 +152,17 @@
             {% if page_obj.number == num %}
             <li class="page-item active"><span class="page-link">{{ num }}</span></li>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
-              <a class="page-link" href="?page={{ num }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">{{ num }}</a>
+              <a class="page-link" href="?page={{ num }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">{{ num }}</a>
               </li>
               {% endif %}
               {% endfor %}
 
               {% if page_obj.has_next %}
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">Next</a>
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">Next</a>
               </li>
               <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}">Last</a>
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if suspect_query %}&suspect={{ suspect_query }}{% endif %}&sort={{ sort_by }}">Last</a>
               </li>
               {% endif %}
           </ul>
