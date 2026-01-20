@@ -115,10 +115,10 @@
               <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
             </div>
             <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0">{{ report.title }}</h6>
-              <small class="text-secondary">Reported by: {{ report.author.username }}</small>
+              <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
+              <small class="text-secondary"><strong>Reported by:</strong> {{ report.author.username }}</small>
               <br>
-              <small class="text-secondary">Suspect: {{ report.suspect_username }}</small>
+              <small class="text-secondary"><strong>Suspect:</strong> {{ report.suspect_username }}</small>
             </div>
             <a class="btn btn-success btn-sm clip-item-btn w-lg-auto align-self-end order-lg-2 order-3" href="{% url 'report_detail' report_id=report.id %}">Watch</a>
           </div>
