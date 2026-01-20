@@ -9,6 +9,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE,
                                 related_name='profile')
     profile_picture = CloudinaryField('image', blank=True, null=True)
+    reputation = models.IntegerField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -162,49 +162,54 @@
 
         <!-- STATUS CARD -->
         <div class="glass-card mb-4">
-          <h4 class="fw-bold mb-3">📊 Report Status</h4>
+          <h4 class="fw-bold mb-3">📊 Report Score</h4>
 
-          <div class="mb-4">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <small class="text-muted">Support Votes</small>
-              <strong class="text-success">127</strong>
-            </div>
-            <p class="text-secondary small mb-0">Community members who agree with this report.</p>
-          </div>
-
-          <div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <small class="text-muted">Dispute Votes</small>
-              <strong class="text-danger">8</strong>
-            </div>
-            <p class="text-secondary small mb-0">Community members who dispute this report.</p>
+          <div class="text-center mb-3">
+            <h2 class="fw-bold {% if report.score >= 0 %}text-success{% else %}text-danger{% endif %}">
+              {{ report.score }}
+            </h2>
+            <small class="text-muted">Community support score</small>
           </div>
         </div>
 
         <!-- ACTIONS CARD -->
         <div class="glass-card mb-4">
-          <h4 class="fw-bold mb-3">⚡ Actions</h4>
+          <h4 class="fw-bold mb-3">⚡ Vote on this Report</h4>
 
-          <div class="d-grid gap-2">
-            <button class="btn btn-success btn-sm">
-              <i class="fas fa-thumbs-up me-1"></i>Support This Report
-            </button>
-            <button class="btn btn-outline-secondary btn-sm">
-              <i class="fas fa-thumbs-down me-1"></i>Dispute Report
-            </button>
-
-            {% if report.author == user %}
-            <hr class="border-secondary" style="opacity: 0.3;">
-            <div class="d-grid gap-2">
-              <a href="{% url 'edit_report' report_id=report.id %}" class="btn btn-warning btn-sm">
-                <i class="fas fa-edit me-1"></i>Edit Report
-              </a>
-              <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteReportModal">
-                <i class="fas fa-trash me-1"></i>Delete Report
-              </button>
-            </div>
-            {% endif %}
+          {% if user.is_authenticated %}
+          {% if report.author == user %}
+          <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle me-2"></i>You cannot vote on your own reports.
           </div>
+          {% else %}
+          {% with user_vote=report.votes.filter|dictsort:"user_id"|first %}
+          <div class="d-grid gap-2">
+            <a href="{% url 'vote_report' report_id=report.id vote_type='up' %}" class="btn btn-sm {% if user_vote and user_vote.vote_type == 'up' %}btn-success{% else %}btn-outline-success{% endif %}">
+              <i class="fas fa-thumbs-up me-1"></i>{% if user_vote and user_vote.vote_type == 'up' %}Remove Upvote{% else %}Upvote{% endif %}
+            </a>
+            <a href="{% url 'vote_report' report_id=report.id vote_type='down' %}" class="btn btn-sm {% if user_vote and user_vote.vote_type == 'down' %}btn-danger{% else %}btn-outline-danger{% endif %}">
+              <i class="fas fa-thumbs-down me-1"></i>{% if user_vote and user_vote.vote_type == 'down' %}Remove Downvote{% else %}Downvote{% endif %}
+            </a>
+          </div>
+          {% endwith %}
+          {% endif %}
+          {% else %}
+          <div class="alert alert-warning" role="alert">
+            <i class="fas fa-lock me-2"></i><a href="{% url 'account_login' %}" class="alert-link">Sign in</a> to vote on this report.
+          </div>
+          {% endif %}
+
+          {% if report.author == user %}
+          <hr class="border-secondary" style="opacity: 0.3;">
+          <div class="d-grid gap-2">
+            <a href="{% url 'edit_report' report_id=report.id %}" class="btn btn-warning btn-sm">
+              <i class="fas fa-edit me-1"></i>Edit Report
+            </a>
+            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteReportModal">
+              <i class="fas fa-trash me-1"></i>Delete Report
+            </button>
+          </div>
+          {% endif %}
         </div>
 
         <!-- METADATA CARD -->
@@ -244,12 +249,15 @@
           </div>
 
           <p class="text-secondary small mb-0">
-            <i class="fas fa-star text-warning me-1"></i>Reputation: 847 points
+            <i class="fas fa-star text-warning me-1"></i>Reputation: {{ report.author.profile.reputation }} points
           </p>
         </div>
       </div>
 
+
     </div>
+
+  </div>
   </div>
 </section>
 

@@ -21,7 +21,7 @@ class CheaterPost(models.Model):
     youtube_url = models.URLField()
     suspected_hack_types = models.JSONField(default=list)
     description = models.TextField()
-    # score = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -30,3 +30,29 @@ class CheaterPost(models.Model):
 
     class Meta:
         ordering = ['-created_on']
+
+
+class Vote(models.Model):
+    VOTE_CHOICES = [
+        ('up', 'Upvote'),
+        ('down', 'Downvote'),
+    ]
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='votes'
+    )
+    post = models.ForeignKey(
+        CheaterPost, on_delete=models.CASCADE, related_name='votes'
+    )
+    vote_type = models.CharField(max_length=4, choices=VOTE_CHOICES)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'post')
+        indexes = [
+            models.Index(fields=['user', 'post']),
+        ]
+
+    def __str__(self):
+        vote_label = f"{self.user.username} voted {self.vote_type}"
+        return f"{vote_label} on {self.post.title}"

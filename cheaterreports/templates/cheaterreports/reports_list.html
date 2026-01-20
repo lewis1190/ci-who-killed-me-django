@@ -54,7 +54,14 @@
                   <h5 class="fw-bold text-white mb-1">{{ report.title }}</h5>
                   <p class="text-muted small mb-0">Report ID: #HKM-{{ report.created_on.year }}-{{ report.id }}</p>
                 </div>
-                <small class="text-secondary">{{ report.created_on|date:"M d, Y" }}</small>
+                <div class="text-end">
+                  <div class="badge bg-dark mb-2" style="display: block; padding: 0.5rem;">
+                    <span class="{% if report.score >= 0 %}text-success{% else %}text-danger{% endif %}" style="font-size: 0.85rem; font-weight: bold;">
+                      Score: {{ report.score }}
+                    </span>
+                  </div>
+                  <small class="text-secondary">{{ report.created_on|date:"M d, Y" }}</small>
+                </div>
               </div>
 
               <div class="row g-3 mb-3">

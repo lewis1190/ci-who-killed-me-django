@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.http import HttpRequest
-from .models import CheaterPost
+from django.http import HttpRequest, JsonResponse
+from typing import cast
+from .models import CheaterPost, Vote
+from userprofile.models import UserProfile
 
 # Create your views here.
 
@@ -185,4 +187,93 @@ def report_delete(request: HttpRequest, report_id: int):
             return redirect('report_detail', report_id=report_id)
 
     # If GET request, redirect to report detail (shouldn't normally happen)
+    return redirect('report_detail', report_id=report_id)
+
+
+@login_required
+def vote_report(request: HttpRequest, report_id: int, vote_type: str):
+    """
+    Handle voting on a report. Vote types are 'up' or 'down'.
+    If the user has already voted the same way, remove the vote.
+    If the user voted the opposite way, change the vote.
+    """
+    if vote_type not in ['up', 'down']:
+        return JsonResponse({'error': 'Invalid vote type'}, status=400)
+
+    report = get_object_or_404(CheaterPost, pk=report_id)
+
+    # Check if user is trying to vote on their own post
+    if report.author == request.user:
+        messages.error(request, 'You cannot vote on your own reports.')
+        return redirect('report_detail', report_id=report_id)
+
+    # Check if user has already voted on this post
+    existing_vote = Vote.objects.filter(user=request.user, post=report).first()
+
+    if existing_vote:
+        if existing_vote.vote_type == vote_type:
+            # User is removing their vote
+            old_vote_type = existing_vote.vote_type
+            existing_vote.delete()
+
+            # Adjust score and author reputation
+            score_change = -1 if old_vote_type == 'up' else 1
+            report.score += score_change
+            report.save()
+
+            # We're using a cast here. This is normally risky, but we know:
+            # - There is always a UserProfile connected to a User via
+            #   a OneToOneField
+            # - The linter cannot infer the OneToOneField from the codebase
+            # Therefore, all usages of this in this file are safe.
+            profile = cast(
+                UserProfile, getattr(report.author, 'profile', None)
+            )
+            if profile:
+                profile.reputation += score_change
+                profile.save()
+
+            messages.success(request, 'Your vote has been removed.')
+        else:
+            # User is changing their vote
+            old_vote_type = existing_vote.vote_type
+            existing_vote.vote_type = vote_type
+            existing_vote.save()
+
+            # Adjust score and author reputation (remove old, add new)
+            old_change = 1 if old_vote_type == 'up' else -1
+            new_change = 1 if vote_type == 'up' else -1
+            total_change = new_change - old_change
+
+            report.score += total_change
+            report.save()
+
+            profile = cast(
+                UserProfile, getattr(report.author, 'profile', None)
+            )
+            if profile:
+                profile.reputation += total_change
+                profile.save()
+
+            messages.success(
+                request, f'Your vote has been changed to {vote_type}vote.')
+    else:
+        # Create new vote
+        Vote.objects.create(user=request.user, post=report,
+                            vote_type=vote_type)
+
+        # Adjust score and author reputation
+        score_change = 1 if vote_type == 'up' else -1
+        report.score += score_change
+        report.save()
+
+        profile = cast(
+            UserProfile, getattr(report.author, 'profile', None)
+        )
+        if profile:
+            profile.reputation += score_change
+            profile.save()
+
+        messages.success(request, f'You have {vote_type}voted this report.')
+
     return redirect('report_detail', report_id=report_id)
