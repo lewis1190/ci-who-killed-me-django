@@ -79,26 +79,27 @@
 
               <div class="row g-3 mb-3">
                 <div class="col-sm-6 col-md-3">
-                  <small class="text-muted d-block mb-1">Suspect</small>
-                  <p class="text-white fw-bold small mb-0 text-truncate-single">{{ report.suspect_username }}</p>
+                  <small class="text-muted d-block mb-1 fw-bold">Suspect:</small>
+                  <p class="text-white small mb-0 text-truncate-single">{{ report.suspect_username }}</p>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                  <small class="text-muted d-block mb-1">Game</small>
-                  <p class="text-white fw-bold small mb-0 text-truncate-single">{{ report.game_name }}</p>
+                  <small class="text-muted d-block mb-1 fw-bold">Game:</small>
+                  <p class="text-white small mb-0 text-truncate-single">{{ report.game_name }}</p>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                  <small class="text-muted d-block mb-1">Uploader</small>
-                  <p class="text-white fw-bold small mb-0 text-truncate-single">{{ report.author.username }}</p>
+                  <small class="text-muted d-block mb-1 fw-bold">Uploader:</small>
+                  <p class="text-white small mb-0 text-truncate-single">{{ report.author.username }}</p>
                 </div>
               </div>
 
+              <small class="text-muted d-block mb-1 fw-bold">Description:</small>
               <p class="text-secondary small mb-3" style="max-height: 60px; overflow: hidden; text-overflow: ellipsis;">
                 {{ report.description|truncatewords:30 }}
               </p>
 
               <!-- HACK TYPE BADGES -->
               <div class="mb-3">
-                <small class="text-muted d-block mb-1">Hacks Reported: </small>
+                <small class="text-muted d-block mb-2 fw-bold">Hacks Reported: </small>
                 <div class="d-flex flex-wrap gap-2">
                   {% if 'aimbot' in report.suspected_hack_types %}
                   <span class="badge bg-danger">Aimbot</span>
