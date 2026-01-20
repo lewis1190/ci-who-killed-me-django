@@ -107,8 +107,14 @@ def new_report(request: HttpRequest):
 
 def report_detail(request: HttpRequest, report_id: int):
     report = get_object_or_404(CheaterPost, pk=report_id)
+
+    user_vote = None
+    if request.user.is_authenticated:
+        user_vote = Vote.objects.filter(user=request.user, post=report).first()
+
     context = {
         'report': report,
+        'user_vote': user_vote,
     }
     return render(request, 'cheaterreports/report_detail.html', context)
 
@@ -209,6 +215,7 @@ def report_delete(request: HttpRequest, report_id: int):
     return redirect('report_detail', report_id=report_id)
 
 
+# UPVOTE / DOWNVOTE LOGIC
 @login_required
 def vote_report(request: HttpRequest, report_id: int, vote_type: str):
     """
