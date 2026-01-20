@@ -51,8 +51,8 @@
             <!-- YouTube URL -->
             <div class="mb-4">
               <label for="youtube_url" class="form-label">YouTube URL <span class="text-danger">*</span></label>
-              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." value="{% if form_data.youtube_url %}{{ form_data.youtube_url }}{% elif report %}{{ report.youtube_url }}{% endif %}" required>
-              <small class="text-muted">Link to video evidence of the suspected cheating</small>
+              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." value="{% if form_data.youtube_url %}{{ form_data.youtube_url }}{% elif report %}{{ report.youtube_url }}{% endif %}" pattern="https?://(www\.)?(youtube\.com|youtu\.be)/.*" required>
+              <small class="text-muted">Link to video evidence of the suspected cheating (YouTube video links only)</small>
             </div>
 
             <!-- Suspected Hack Types -->

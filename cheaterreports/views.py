@@ -6,6 +6,7 @@ from django.http import HttpRequest, JsonResponse
 from django.utils import timezone
 from datetime import timedelta
 from typing import cast
+from .helpers import is_valid_youtube_url
 from .models import CheaterPost, Vote, Comment
 from userprofile.models import UserProfile
 
@@ -80,6 +81,15 @@ def new_report(request: HttpRequest):
             return render(request, 'cheaterreports/report_form.html',
                           {'form_data': form_data})
 
+        # Validate YouTube URL format
+        if not is_valid_youtube_url(youtube_url):
+            messages.error(
+                request,
+                'Please enter a valid YouTube URL (youtube.com or youtu.be).'
+            )
+            return render(request, 'cheaterreports/report_form.html',
+                          {'form_data': form_data})
+
         # Create and save the report
         try:
             report = CheaterPost(
@@ -151,6 +161,18 @@ def report_edit(request: HttpRequest, report_id: int):
         if not all([title, suspect_username, game_name, youtube_url,
                     hack_types, description]):
             messages.error(request, 'Please fill in all required fields.')
+            return render(request, 'cheaterreports/report_form.html', {
+                'report': report,
+                'is_edit': True,
+                'form_data': form_data,
+            })
+
+        # Validate YouTube URL format
+        if not is_valid_youtube_url(youtube_url):
+            messages.error(
+                request,
+                'Please enter a valid YouTube URL (youtube.com or youtu.be).'
+            )
             return render(request, 'cheaterreports/report_form.html', {
                 'report': report,
                 'is_edit': True,
