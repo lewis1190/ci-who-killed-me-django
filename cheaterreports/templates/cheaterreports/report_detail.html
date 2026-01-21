@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
 
           <div class="row g-3 mt-3">
             <div class="col-sm-6">
@@ -112,13 +112,13 @@
             </div>
           </form>
 
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
           {% else %}
           <div class="alert alert-warning" role="alert">
             <i class="fas fa-lock me-2"></i><a href="{% url 'account_login' %}" class="alert-link">Sign in</a> to leave a comment.
           </div>
 
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
           {% endif %}
 
           <!-- COMMENTS LIST -->
@@ -194,7 +194,7 @@
           {% endif %}
 
           {% if report.author == user %}
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
           <div class="d-grid gap-2">
             <a href="{% url 'edit_report' report_id=report.id %}" class="btn btn-warning btn-sm">
               <i class="fas fa-edit me-1"></i>Edit Report
