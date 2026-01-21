@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from cheaterreports.models import CheaterPost, Vote
+from cheaterreports.models import CheaterPost, Comment, Vote
 
 # Register your models here.
 
@@ -19,3 +19,10 @@ class VoteAdmin(admin.ModelAdmin):
     list_display = ('user', 'post', 'vote_type', 'created_on')
     search_fields = ('user__username', 'post__title')
     list_filter = ('vote_type', 'created_on')
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('author', 'post', 'created_on')
+    search_fields = ('author__username', 'post__title', 'body')
+    list_filter = ('created_on',)
