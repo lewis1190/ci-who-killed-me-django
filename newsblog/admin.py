@@ -15,3 +15,16 @@ class PostAdmin(SummernoteModelAdmin):
     search_fields = ['title', 'content']
     list_filter = ('status', 'created_on',)
     summernote_fields = ('content',)
+
+    # Override to prepopulate author field with the logged-in admin on the
+    # admin portal
+
+    def get_changeform_initial_data(self, request):
+        """
+        Prepopulate the author field with the currently logged-in user
+        when creating a new NewsPost.
+        """
+        initial_data = super().get_changeform_initial_data(request)
+        if request.user.pk:
+            initial_data['author'] = request.user.pk
+        return initial_data
