@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cheaterreports_filters %}
 
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
+
+{% url 'report_detail' report_id=1 as placeholder_report_url %}
 
 {% block content %}
 
@@ -17,10 +20,10 @@
       <div class="col-lg-7">
         <!-- SEARCH -->
         <div class="glass-card mb-4">
-          <div class="input-group input-group-lg">
-            <input type="text" class="form-control" placeholder="Search for cheater reports..." />
-            <button class="btn btn-success px-4">Search</button>
-          </div>
+          <form method="GET" action="{% url 'list_reports' %}" class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search for cheater reports..." name="suspect" />
+            <button class="btn btn-success px-4" type="submit">Search</button>
+          </form>
         </div>
 
         {% if not user.is_authenticated %}
@@ -100,50 +103,37 @@
           <h4 class="fw-bold mb-1">Top Clips This Month</h4>
           <p class="text-secondary mb-4">Most Popular Reports</p>
 
+          {% if recent_reports %}
+          <div class="clips-container">
+          {% for report in recent_reports %}
           <!-- CLIP ITEM -->
-          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0">Suspect Aimbot Rampage</h6>
-              <small class="text-secondary">Cheater123 ⭐ 4.8</small>
+          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start position-relative">
+            <div class="position-absolute" style="top: 0; right: 0; background-color: rgba(0, 0, 0, 0.7); padding: 4px 8px; border-radius: 3px; font-size: 0.875rem; font-weight: bold;">
+              <span class="{% if report.score|default:0 >= 0 %}text-success{% else %}text-danger{% endif %}">Score: {{ report.score|default:"0" }}</span>
             </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+            <div class="clip-thumbnail flex-shrink-0 order-lg-0 order-first">
+              <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+            </div>
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
+              <small class="text-secondary"><strong>Reported by:</strong> {{ report.author.username }}</small>
+              <br>
+              <small class="text-secondary"><strong>Suspect:</strong> {{ report.suspect_username }}</small>
+            </div>
+            <a class="btn btn-success btn-sm clip-item-btn w-lg-auto align-self-end order-lg-2 order-3" href="{% url 'report_detail' report_id=report.id %}">Watch</a>
           </div>
-
-          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0">Wallhack Wizard</h6>
-              <small class="text-secondary">ShadowKiller ⭐ 4.7</small>
-            </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          {% endfor %}
           </div>
-
-          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0">Instant Headshot Hacker</h6>
-              <small class="text-secondary">NoScopeKing ⭐ 4.6</small>
-            </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
+          {% else %}
+          <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle me-2"></i>No reports yet. <a href="{% url 'new_report' %}" class="text-success">Be the first to report a cheater!</a>
           </div>
+          {% endif %}
 
-          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0">Speed Hack Madness</h6>
-              <small class="text-secondary">FastRunner ⭐ 4.5</small>
+          <div class="mt-4 row">
+            <div class="col-12 col-lg-6 mx-auto">
+              <a href="{% url 'list_reports' %}" class="btn btn-success w-100">View More Reports</a>
             </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
-          </div>
-
-          <div class="clip-item mb-0 d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/120x70" alt="" class="flex-shrink-0 order-lg-0 order-first">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0">ESP Exploit Exposed</h6>
-              <small class="text-secondary">XxCheatSpotxX ⭐ 4.4</small>
-            </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Watch</button>
           </div>
 
         </div>

@@ -7,6 +7,8 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'new_report' as new_report_url %}
+{% url 'list_reports' as list_reports_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,14 +45,22 @@
           <li class="nav-item"><a class="nav-link {% if request.path == home_url %}active aria-current='page' {% endif %}" href="{{ home_url }}">Home</a></li>
           <li class="nav-item"><a class="nav-link {% if request.path == about_url %}active aria-current='page' {% endif %}" href="{{ about_url }}">About Us</a></li>
           <li class="nav-item"><a class="nav-link {% if '/news' in request.path %}active aria-current='page' {% endif %}" href="{{ news_url }}">News</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Report a Cheater</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.path == new_report_url %}active aria-current='page' {% endif %}" href="{{ new_report_url }}">Report a Cheater</a></li>
+          <li class="nav-item"><a class="nav-link {% if request.path == list_reports_url %}active aria-current='page' {% endif %}" href="{{ list_reports_url }}">View Reports</a></li>
         </ul>
 
         <div class="d-flex gap-2">
           {% if user.is_authenticated %}
           <div class="dropdown">
-            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+              <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
               Hello {{ user }}!
+              {% if user.is_superuser %}
+              <span class="text-danger">[Admin]</span>
+              {% endif %}
+              {% for group in user.groups.all %}
+              {% if group.name == "Moderator" and not user.is_superuser %} <span class="text-warning">[Mod]</span>{% endif %}
+              {% endfor %}
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="{% url 'user_profile' %}">View Profile</a></li>
@@ -69,6 +79,18 @@
       </div>
     </div>
   </nav>
+
+  <!-- MESSAGES (TOAST STYLE) -->
+  {% if messages %}
+  <div class="messages-container" style="position: fixed; top: 80px; right: 20px; z-index: 1050; max-width: 400px;">
+    {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" style="margin-bottom: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border-radius: 8px;">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
 
   {% block content %}
   <!-- Content Goes here -->
@@ -115,5 +137,8 @@
   <!-- Font Awesome for Social Icons -->
   <script src="https://kit.fontawesome.com/d2b8795f3e.js" crossorigin="anonymous"></script>
 </body>
+
+{% block extras %}
+{% endblock extras %}
 
 </html>
