@@ -1,8 +1,9 @@
 /* TEMPLATE-SPECIFIC STYLESHEETS */
 @import url('page/base.css');
 @import url('page/home.css');
-@import url('page/reports_list.css');
+@import url('page/news_detail.css');
 @import url('page/report_detail.css');
+@import url('page/reports_list.css');
 @import url('page/user_profile.css');
 
 /* PURPOSE-SPECIFIC STYLESHEETS */

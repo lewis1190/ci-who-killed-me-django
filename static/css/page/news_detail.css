@@ -1,0 +1,5 @@
+.news-detail-article-image {
+    aspect-ratio: 2 / 1;
+    border-radius: 8px;
+    object-fit: cover;
+}
