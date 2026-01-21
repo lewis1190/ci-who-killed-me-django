@@ -5,21 +5,17 @@
 @import url('page/user_profile.css');
 
 /* PURPOSE-SPECIFIC STYLESHEETS */
-@import url('page/form_style.css');
+@import url('form_style.css');
 
 /* BOOTSTRAP OVERRIDES */
 :root {
   --bs-secondary-color: #ffffff;
   --bs-secondary-rgb: #ffffff;
+
   // Needed to force dark mode for browser scrollbars.
   color-scheme: dark;
 }
 
-.border-secondary {
-  opacity: 0.3;
-}
-
-/* BELOW STYLES ARE USED ACROSS MANY TEMPLATES */
 /* GLOBAL */
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -28,6 +24,10 @@ body {
   background-image: url("https://images.unsplash.com/photo-1542751371-adc38448a05e");
   background-size: cover;
   background-position: center;
+}
+
+.border-secondary {
+  opacity: 0.3;
 }
 
 /* HERO */
