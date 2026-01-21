@@ -2,6 +2,7 @@
 @import url('page/base.css');
 @import url('page/home.css');
 @import url('page/reports_list.css');
+@import url('page/report_detail.css');
 @import url('page/user_profile.css');
 
 /* PURPOSE-SPECIFIC STYLESHEETS */
@@ -12,7 +13,7 @@
   --bs-secondary-color: #ffffff;
   --bs-secondary-rgb: #ffffff;
 
-  // Needed to force dark mode for browser scrollbars.
+  /* Needed to force dark mode for browser scrollbars. */
   color-scheme: dark;
 }
 
