@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% load cheaterreports_filters %}
+
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+
+{% url 'report_detail' report_id=1 as placeholder_report_url %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="overlay"></div>
+
+  <div class="container position-relative z-1 pt-5">
+    <div class="row g-4 align-items-start">
+
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
+        <!-- SEARCH -->
+        <div class="glass-card mb-4">
+          <form method="GET" action="{% url 'list_reports' %}" class="input-group input-group-lg">
+            <input type="text" class="form-control" placeholder="Search for cheater reports..." name="suspect" />
+            <button class="btn btn-success px-4" type="submit">Search</button>
+          </form>
+        </div>
+
+        {% if not user.is_authenticated %}
+        <!-- CTA -->
+        <div class="glass-card">
+          <h2 class="fw-bold mb-3">Join the Fight Against Cheating!</h2>
+          <p class="text-secondary">
+            Sign in or sign up to report cheaters and discuss the latest incidents.
+          </p>
+
+          <div class="d-flex gap-3 mt-4">
+            <a class="btn btn-outline-light btn-lg px-4" href="{{ login_url }}">Login</a>
+            <a class="btn btn-success btn-lg px-4" href="{{ signup_url }}">Sign Up</a>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- NEWS CARD -->
+        <div class="glass-card mt-4">
+          <h4 class="fw-bold mb-3">Latest News</h4>
+
+          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">New Anti-Cheat System Deployed</h6>
+              <small class="text-secondary">2 hours ago</small>
+              <p class="text-secondary mt-2 mb-0">Enhanced detection algorithms now active across all servers.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+
+          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
+              <small class="text-secondary">1 day ago</small>
+              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+
+          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
+              <small class="text-secondary">1 day ago</small>
+              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+
+          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
+              <small class="text-secondary">1 day ago</small>
+              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+
+          <div class="d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-1">Community Tournament Announced</h6>
+              <small class="text-secondary">3 days ago</small>
+              <p class="text-secondary mt-2 mb-0">Fair-play championship with anti-cheat verification required.</p>
+            </div>
+            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-5">
+        <div class="glass-card">
+          <h4 class="fw-bold mb-1">Top Clips This Month</h4>
+          <p class="text-secondary mb-4">Most Popular Reports</p>
+
+          {% if recent_reports %}
+          <div class="clips-container">
+          {% for report in recent_reports %}
+          <!-- CLIP ITEM -->
+          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start position-relative">
+            <div class="position-absolute" style="top: 0; right: 0; background-color: rgba(0, 0, 0, 0.7); padding: 4px 8px; border-radius: 3px; font-size: 0.875rem; font-weight: bold;">
+              <span class="{% if report.score|default:0 >= 0 %}text-success{% else %}text-danger{% endif %}">Score: {{ report.score|default:"0" }}</span>
+            </div>
+            <div class="clip-thumbnail flex-shrink-0 order-lg-0 order-first">
+              <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+            </div>
+            <div class="flex-grow-1 order-lg-1 order-2">
+              <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
+              <small class="text-secondary"><strong>Reported by:</strong> {{ report.author.username }}</small>
+              <br>
+              <small class="text-secondary"><strong>Suspect:</strong> {{ report.suspect_username }}</small>
+            </div>
+            <a class="btn btn-success btn-sm clip-item-btn w-lg-auto align-self-end order-lg-2 order-3" href="{% url 'report_detail' report_id=report.id %}">Watch</a>
+          </div>
+          {% endfor %}
+          </div>
+          {% else %}
+          <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle me-2"></i>No reports yet. <a href="{% url 'new_report' %}" class="text-success">Be the first to report a cheater!</a>
+          </div>
+          {% endif %}
+
+          <div class="mt-4 row">
+            <div class="col-12 col-lg-6 mx-auto">
+              <a href="{% url 'list_reports' %}" class="btn btn-success w-100">View More Reports</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- home.html content ends here -->
+{% endblock %}
+
+{% block copyright %}
+Copyright 2023 by Lewis Kosztan
+{% endblock copyright %}

@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="overlay"></div>
+
+  <div class="container position-relative z-1 pt-5">
+    <div class="row g-4 align-items-start">
+
+      <div class="col-12">
+        <div class="glass-card mb-4">
+          <h1 class="fw-bold mb-3">{% if is_edit %}Edit Report{% else %}Report a Cheater{% endif %}</h1>
+          <p class="text-secondary">
+            {% if is_edit %}Update the details of your cheater report.{% else %}Help us keep gaming fair for everyone. Provide as much detail as possible to help our investigation team.{% endif %}
+          </p>
+        </div>
+      </div>
+
+      <!-- FORM CARD -->
+      <div class="col-lg-8">
+        <div class="glass-card">
+          <h3 class="text-success mb-4">{% if is_edit %}Update Report{% else %}Submit Your Report{% endif %}</h3>
+          <p class="text-muted mb-5">{% if is_edit %}Make any necessary changes to your report.{% else %}Include video evidence if available. All submissions are reviewed by our moderation team.{% endif %}</p>
+
+          <form method="POST">
+            {% csrf_token %}
+
+            <!-- Title -->
+            <div class="mb-4">
+              <label for="title" class="form-label">Report Title <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="e.g., Aimbots in Team Deathmatch" value="{% if form_data.title %}{{ form_data.title }}{% elif report %}{{ report.title }}{% endif %}" required>
+              <small class="text-muted">A brief summary of the incident</small>
+            </div>
+
+            <!-- Suspect Username -->
+            <div class="mb-4">
+              <label for="suspect_username" class="form-label">Suspect Username <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="suspect_username" name="suspect_username" placeholder="Enter the player's username" value="{% if form_data.suspect_username %}{{ form_data.suspect_username }}{% elif report %}{{ report.suspect_username }}{% endif %}" required>
+              <small class="text-muted">The in-game username of the suspected cheater</small>
+            </div>
+
+            <!-- Game Name -->
+            <div class="mb-4">
+              <label for="game_name" class="form-label">Game Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="game_name" name="game_name" placeholder="e.g., Call of Duty: Warzone" value="{% if form_data.game_name %}{{ form_data.game_name }}{% elif report %}{{ report.game_name }}{% endif %}" required>
+              <small class="text-muted">Which game did this occur in?</small>
+            </div>
+
+            <!-- YouTube URL -->
+            <div class="mb-4">
+              <label for="youtube_url" class="form-label">YouTube URL <span class="text-danger">*</span></label>
+              <input type="url" class="form-control" id="youtube_url" name="youtube_url" placeholder="https://www.youtube.com/watch?v=..." value="{% if form_data.youtube_url %}{{ form_data.youtube_url }}{% elif report %}{{ report.youtube_url }}{% endif %}" pattern="https?://(www\.)?(youtube\.com|youtu\.be)/.*" required>
+              <small class="text-muted">Link to video evidence of the suspected cheating (YouTube video links only)</small>
+            </div>
+
+            <!-- Suspected Hack Types -->
+            <!-- TODO: Lots of repeated code here. Could be great to squash this down into a loop-render -->
+            <div class="mb-4">
+              <label class="form-label d-block mb-3">Suspected Hack Types <span class="text-danger">*</span></label>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="aimbot" name="hack_types" value="aimbot" {% if form_data.hack_types and 'aimbot' in form_data.hack_types %}checked{% elif report and 'aimbot' in report.suspected_hack_types %}checked{% endif %}>
+                    <label class="form-check-label" for="aimbot">
+                      Aimbot
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="wallhack" name="hack_types" value="wallhack" {% if form_data.hack_types and 'wallhack' in form_data.hack_types %}checked{% elif report and 'wallhack' in report.suspected_hack_types %}checked{% endif %}>
+                    <label class="form-check-label" for="wallhack">
+                      Wallhack
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="speedhack" name="hack_types" value="speedhack" {% if form_data.hack_types and 'speedhack' in form_data.hack_types %}checked{% elif report and 'speedhack' in report.suspected_hack_types %}checked{% endif %}>
+                    <label class="form-check-label" for="speedhack">
+                      Speed Hack
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="noclip" name="hack_types" value="noclip" {% if form_data.hack_types and 'noclip' in form_data.hack_types %}checked{% elif report and 'noclip' in report.suspected_hack_types %}checked{% endif %}>
+                    <label class="form-check-label" for="noclip">
+                      No-Clip
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="esp" name="hack_types" value="esp" {% if form_data.hack_types and 'esp' in form_data.hack_types %}checked{% elif report and 'esp' in report.suspected_hack_types %}checked{% endif %}>
+                    <label class="form-check-label" for="esp">
+                      ESP
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="other" name="hack_types" value="other" {% if form_data.hack_types and 'other' in form_data.hack_types %}checked{% elif report and 'other' in report.suspected_hack_types %}checked{% endif %}>
+                    <label class="form-check-label" for="other">
+                      Other
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <small class="text-muted d-block mt-2">Select all that apply</small>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <label for="description" class="form-label">Detailed Description <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="description" name="description" rows="6" placeholder="Describe what you observed. Include timestamps, locations, and specific suspicious behavior." required>{% if form_data.description %}{{ form_data.description }}{% elif report %}{{ report.description }}{% endif %}</textarea>
+              <small class="text-muted">Provide as much detail as possible to help our investigation team</small>
+            </div>
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success">
+                <i class="fas fa-paper-plane me-2"></i>{% if is_edit %}Update Report{% else %}Submit Report{% endif %}
+              </button>
+              <a href="{% if is_edit %}{% url 'report_detail' report_id=report.id %}{% else %}{% url 'home' %}{% endif %}" class="btn btn-outline-secondary">
+                <i class="fas fa-times me-2"></i>Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- INFO CARD SIDEBAR -->
+      <div class="col-lg-4">
+        <div class="glass-card mb-4">
+          <h4 class="fw-bold mb-3">📋 What to Include</h4>
+
+          <div class="mb-3">
+            <h6 class="text-success mb-2">Timestamps</h6>
+            <p class="text-secondary mb-0 small">Note when you observed the suspicious behavior</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="text-success mb-2">Locations</h6>
+            <p class="text-secondary mb-0 small">Mention specific maps or game areas</p>
+          </div>
+
+          <div class="mb-3">
+            <h6 class="text-success mb-2">Actions</h6>
+            <p class="text-secondary mb-0 small">Describe what the player did that seemed suspicious</p>
+          </div>
+
+          <div>
+            <h6 class="text-success mb-2">Video Evidence</h6>
+            <p class="text-secondary mb-0 small">Links to YouTube or other video platforms</p>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h4 class="fw-bold mb-3">⚠️ Important Notes</h4>
+          <p class="text-muted small mb-3">
+            False reports may result in account restrictions. Only report genuine suspected cheating.
+          </p>
+          <p class="text-muted small mb-0">
+            <i class="fas fa-shield-alt me-1 text-success"></i>Spam, inappropriate posts and poor-quality reports <strong>will</strong> be removed.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
