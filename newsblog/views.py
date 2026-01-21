@@ -24,7 +24,28 @@ def news_list(request):
 def news_detail(request, id):
     # Retrieve a specific published news article by id
     post = get_object_or_404(NewsPost, pk=id, status=1)
+
+    # Get recent articles (excluding current post)
+    recent_posts = NewsPost.objects.filter(status=1).exclude(pk=id).order_by(
+        '-created_on'
+    )[:3]
+
+    # Get previous article (older, so lower id or earlier date)
+    previous_post = NewsPost.objects.filter(
+        status=1, created_on__lt=post.created_on).order_by(
+            '-created_on'
+    ).first()
+
+    # Get next article (newer, so higher id or later date)
+    next_post = NewsPost.objects.filter(
+        status=1, created_on__gt=post.created_on).order_by(
+            'created_on'
+    ).first()
+
     context = {
         'post': post,
+        'recent_posts': recent_posts,
+        'previous_post': previous_post,
+        'next_post': next_post,
     }
     return render(request, 'newsblog/news_detail.html', context)
