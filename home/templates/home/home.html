@@ -28,7 +28,7 @@
 <section class="hero-section">
   <div class="overlay"></div>
 
-  <div class="container position-relative z-1 pt-5">
+  <div class="container position-relative z-1 pt-lg-3">
     <div class="row g-4 align-items-start">
 
       <!-- LEFT COLUMN -->
@@ -71,6 +71,12 @@
             <a href="{% url 'news_detail' id=post.id %}" class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</a>
           </div>
           {% endfor %}
+
+          <div class="mt-4 row pt-3 border-top text-center">
+            <div class="col-12 col-lg-6 mx-auto">
+              <a href="{% url 'news_list' %}" class="btn btn-success w-100">More News</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -109,7 +115,7 @@
 
           <div class="mt-4 row">
             <div class="col-12 col-lg-6 mx-auto">
-              <a href="{% url 'list_reports' %}" class="btn btn-success w-100">View More Reports</a>
+              <a href="{% url 'list_reports' %}" class="btn btn-success w-100">More Reports</a>
             </div>
           </div>
 
