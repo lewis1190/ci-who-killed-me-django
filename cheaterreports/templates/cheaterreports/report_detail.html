@@ -84,74 +84,15 @@
         <div class="glass-card mb-4">
           <h4 class="fw-bold mb-3">🎯 Suspected Hack Types</h4>
 
-          <!-- TODO: Make this more concise -->
+          {% get_hack_types as hack_types %}
           <div class="row g-2">
+            {% for hack_type, label in hack_types %}
             <div class="col-auto">
-              {% if 'aimbot' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Aimbot
+              <span class="badge {% if hack_type in report.suspected_hack_types %}bg-danger{% else %}bg-secondary{% endif %}" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
+                <i class="fas fa-{% if hack_type in report.suspected_hack_types %}check{% else %}times{% endif %} me-1"></i>{{ label }}
               </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Aimbot
-              </span>
-              {% endif %}
             </div>
-            <div class="col-auto">
-              {% if 'esp' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>ESP
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>ESP
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'wallhack' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Wallhack
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Wallhack
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'speedhack' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Speed Hack
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Speed Hack
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'noclip' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>No Clip
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>No Clip
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'other' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Other
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Other
-              </span>
-              {% endif %}
-            </div>
+            {% endfor %}
           </div>
         </div>
 

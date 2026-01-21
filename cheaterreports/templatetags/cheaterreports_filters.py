@@ -22,3 +22,18 @@ def youtube_video_id(url):
         return match.group(1)
 
     return ''
+
+
+@register.simple_tag
+def get_hack_types():
+    """
+    Return a list of hack types with their display labels.
+    """
+    return [
+        ('aimbot', 'Aimbot'),
+        ('esp', 'ESP'),
+        ('wallhack', 'Wallhack'),
+        ('speedhack', 'Speed Hack'),
+        ('noclip', 'No Clip'),
+        ('other', 'Other'),
+    ]
