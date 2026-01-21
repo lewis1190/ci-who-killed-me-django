@@ -17,7 +17,6 @@ def profile(request):
         form = UserProfileForm(request.POST, request.FILES,
                                instance=user_profile)
 
-        print(request.FILES)
         if form.is_valid():
             form.save()
             messages.success(

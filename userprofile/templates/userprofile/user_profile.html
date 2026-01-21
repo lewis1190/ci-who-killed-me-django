@@ -40,14 +40,33 @@
             <form id="profileForm" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
 
+              <!-- Form Errors -->
+              {% if form.non_field_errors %}
+              <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endif %}
+
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" disabled>
                 <small class="text-muted d-block mt-1">Username cannot be changed</small>
               </div>
 
-              <!-- Hidden File Input -->
+              <!-- Hidden File Input with Error Display -->
               <input type="file" id="profilePictureInput" name="profile_picture" class="d-none" accept="image/*">
+
+              {% if form.profile_picture.errors %}
+              <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                {% for error in form.profile_picture.errors %}
+                <div>{{ error }}</div>
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endif %}
 
               <!-- Save and Discard Buttons -->
               <div class="d-grid gap-2">
@@ -158,23 +177,22 @@
               {% for num in page_obj.paginator.page_range %}
               {% if page_obj.number == num %}
               <li class="page-item active"><span class="page-link border-success bg-success text-light"><strong>{{ num }}</strong></span></li>
-              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-              <li class="page-item">
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <li class="page-item">
                 <a class="page-link border-success bg-transparent text-success" href="?page={{ num }}"><strong>{{ num }}</strong></a>
-              </li>
-              {% endif %}
-              {% endfor %}
+                </li>
+                {% endif %}
+                {% endfor %}
 
-              {% if page_obj.has_next %}
-              <li class="page-item">
-                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.next_page_number }}"><strong>Next</strong></a>
-              </li>
-              <li class="page-item">
-                <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
-                  <strong>Last&nbsp;<span aria-hidden="true">&raquo;</span></strong>
-                </a>
-              </li>
-              {% endif %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                  <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.next_page_number }}"><strong>Next</strong></a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link text-success bg-transparent border-success" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                    <strong>Last&nbsp;<span aria-hidden="true">&raquo;</span></strong>
+                  </a>
+                </li>
+                {% endif %}
             </ul>
           </nav>
           {% endif %}

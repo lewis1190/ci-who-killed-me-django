@@ -1,5 +1,6 @@
 from django import forms
 from .models import UserProfile
+from .helpers import validate_file_size
 from allauth.account.forms import SignupForm
 
 
@@ -14,6 +15,18 @@ class UserProfileForm(forms.ModelForm):
                 'accept': 'image/*',
             })
         }
+
+    def clean_profile_picture(self):
+        """Validate profile picture file size."""
+        profile_picture = self.cleaned_data.get('profile_picture')
+
+        if profile_picture:
+            is_valid, error_message = validate_file_size(profile_picture,
+                                                         max_size_mb=1)
+            if not is_valid:
+                raise forms.ValidationError(error_message)
+
+        return profile_picture
 
 
 # AllAuth OVERRIDE. This will create a user profile when a user signs up.
