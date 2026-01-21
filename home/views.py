@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 from datetime import timedelta
 from cheaterreports.models import CheaterPost
+from newsblog.models import NewsPost
 
 # Create your views here.
 
@@ -13,7 +14,11 @@ def home(request):
         created_on__gte=one_month_ago
     ).order_by('-score')[:6]
 
+    # Get the 5 latest published news articles
+    latest_news = NewsPost.objects.filter(status=1).order_by('-created_on')[:5]
+
     context = {
         'recent_reports': top_reports,
+        'latest_news': latest_news,
     }
     return render(request, 'home/home.html', context)

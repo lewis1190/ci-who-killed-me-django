@@ -9,11 +9,26 @@
 
 {% block content %}
 
+<!-- NEWS CARD RESPONSIVE IMAGE STYLING, MOVE TO CSS FILE -->
+<style>
+  .news-card-img {
+    width: 100%;
+    height: 150px;
+  }
+
+  @media (min-width: 992px) {
+    .news-card-img {
+      width: auto;
+      height: 90px;
+    }
+  }
+</style>
+
 <!-- HERO SECTION -->
 <section class="hero-section">
   <div class="overlay"></div>
 
-  <div class="container position-relative z-1 pt-5">
+  <div class="container position-relative z-1 pt-lg-3">
     <div class="row g-4 align-items-start">
 
       <!-- LEFT COLUMN -->
@@ -45,54 +60,22 @@
         <div class="glass-card mt-4">
           <h4 class="fw-bold mb-3">Latest News</h4>
 
-          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
+          {% for post in latest_news %}
+          <div class="{% if not forloop.last %}mb-3 pb-3 border-bottom{% endif %} d-flex flex-column flex-lg-row gap-3 align-items-start">
+            <img src="{% if post.featured_image.public_id != 'placeholder' %}{{ post.featured_image.url }}{% else %}{% static 'images/wkm_news_fallback.png' %}{% endif %}" alt="News: {{ post.title }}" class="news-card-img flex-shrink-0 order-lg-0 order-first" style="object-fit: cover; border-radius: 4px;">
             <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-1">New Anti-Cheat System Deployed</h6>
-              <small class="text-secondary">2 hours ago</small>
-              <p class="text-secondary mt-2 mb-0">Enhanced detection algorithms now active across all servers.</p>
+              <h6 class="mb-1">{{ post.title }}</h6>
+              <small class="text-secondary">{{ post.created_on|date:"M d, Y" }}</small>
+              <p class="text-secondary mt-2 mb-0">{% if post.excerpt %}{{ post.excerpt|truncatewords:15 }}{% else %}{{ post.content|truncatewords:15|striptags }}{% endif %}</p>
             </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
+            <a href="{% url 'news_detail' id=post.id %}" class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</a>
           </div>
+          {% endfor %}
 
-          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
-              <small class="text-secondary">1 day ago</small>
-              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
+          <div class="mt-4 row pt-3 border-top text-center">
+            <div class="col-12 col-lg-6 mx-auto">
+              <a href="{% url 'news_list' %}" class="btn btn-success w-100">More News</a>
             </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
-          </div>
-
-          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
-              <small class="text-secondary">1 day ago</small>
-              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
-            </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
-          </div>
-
-          <div class="mb-3 pb-3 border-bottom d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-1">500 Cheaters Banned This Week</h6>
-              <small class="text-secondary">1 day ago</small>
-              <p class="text-secondary mt-2 mb-0">Record number of accounts removed for suspicious activity.</p>
-            </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
-          </div>
-
-          <div class="d-flex flex-column flex-lg-row gap-3 align-items-start">
-            <img src="https://placehold.co/80x60" alt="News" class="flex-shrink-0 order-lg-0 order-first" style="border-radius: 4px;">
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-1">Community Tournament Announced</h6>
-              <small class="text-secondary">3 days ago</small>
-              <p class="text-secondary mt-2 mb-0">Fair-play championship with anti-cheat verification required.</p>
-            </div>
-            <button class="btn btn-success btn-sm flex-shrink-0 align-self-end order-lg-2 order-3">Read</button>
           </div>
         </div>
       </div>
@@ -105,24 +88,24 @@
 
           {% if recent_reports %}
           <div class="clips-container">
-          {% for report in recent_reports %}
-          <!-- CLIP ITEM -->
-          <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start position-relative">
-            <div class="position-absolute" style="top: 0; right: 0; background-color: rgba(0, 0, 0, 0.7); padding: 4px 8px; border-radius: 3px; font-size: 0.875rem; font-weight: bold;">
-              <span class="{% if report.score|default:0 >= 0 %}text-success{% else %}text-danger{% endif %}">Score: {{ report.score|default:"0" }}</span>
+            {% for report in recent_reports %}
+            <!-- CLIP ITEM -->
+            <div class="clip-item d-flex flex-column flex-lg-row gap-3 align-items-start position-relative">
+              <div class="position-absolute" style="top: 0; right: 0; background-color: rgba(0, 0, 0, 0.7); padding: 4px 8px; border-radius: 3px; font-size: 0.875rem; font-weight: bold;">
+                <span class="{% if report.score|default:0 >= 0 %}text-success{% else %}text-danger{% endif %}">Score: {{ report.score|default:"0" }}</span>
+              </div>
+              <div class="clip-thumbnail flex-shrink-0 order-lg-0 order-first">
+                <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+              </div>
+              <div class="flex-grow-1 order-lg-1 order-2">
+                <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
+                <small class="text-secondary"><strong>Reported by:</strong> {{ report.author.username }}</small>
+                <br>
+                <small class="text-secondary"><strong>Suspect:</strong> {{ report.suspect_username }}</small>
+              </div>
+              <a class="btn btn-success btn-sm clip-item-btn w-lg-auto align-self-end order-lg-2 order-3" href="{% url 'report_detail' report_id=report.id %}">Watch</a>
             </div>
-            <div class="clip-thumbnail flex-shrink-0 order-lg-0 order-first">
-              <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
-            </div>
-            <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
-              <small class="text-secondary"><strong>Reported by:</strong> {{ report.author.username }}</small>
-              <br>
-              <small class="text-secondary"><strong>Suspect:</strong> {{ report.suspect_username }}</small>
-            </div>
-            <a class="btn btn-success btn-sm clip-item-btn w-lg-auto align-self-end order-lg-2 order-3" href="{% url 'report_detail' report_id=report.id %}">Watch</a>
-          </div>
-          {% endfor %}
+            {% endfor %}
           </div>
           {% else %}
           <div class="alert alert-info" role="alert">
@@ -132,7 +115,7 @@
 
           <div class="mt-4 row">
             <div class="col-12 col-lg-6 mx-auto">
-              <a href="{% url 'list_reports' %}" class="btn btn-success w-100">View More Reports</a>
+              <a href="{% url 'list_reports' %}" class="btn btn-success w-100">More Reports</a>
             </div>
           </div>
 
