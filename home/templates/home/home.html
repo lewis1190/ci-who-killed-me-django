@@ -95,7 +95,7 @@
                 <span class="{% if report.score|default:0 >= 0 %}text-success{% else %}text-danger{% endif %}">Score: {{ report.score|default:"0" }}</span>
               </div>
               <div class="clip-thumbnail flex-shrink-0 order-lg-0 order-first">
-                <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+                <img src="https://i.ytimg.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
               </div>
               <div class="flex-grow-1 order-lg-1 order-2">
                 <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
