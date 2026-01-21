@@ -70,10 +70,10 @@
 
               <!-- Save and Discard Buttons -->
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-success">
+                <button type="submit" class="btn btn-success" id="saveButton" disabled>
                   <i class="fas fa-save me-2"></i>Save Changes
                 </button>
-                <button type="button" class="btn btn-outline-secondary" onclick="location.reload();">
+                <button type="button" class="btn btn-outline-secondary" id="discardButton" disabled>
                   <i class="fas fa-times me-2"></i>Discard Changes
                 </button>
               </div>
@@ -242,15 +242,47 @@
 
 <!-- JavaScript for Profile Picture Upload -->
 <script>
-  document.getElementById('profilePictureInput').addEventListener('change', function (e) {
+  const profilePictureInput = document.getElementById('profilePictureInput');
+  const saveButton = document.getElementById('saveButton');
+  const discardButton = document.getElementById('discardButton');
+  const profileForm = document.getElementById('profileForm');
+
+  // Enable/disable buttons based on file selection
+  profilePictureInput.addEventListener('change', function (e) {
     const file = e.target.files[0];
+
+    // Enable buttons if a file is selected
+    const hasFile = file !== undefined && file !== null;
+    saveButton.disabled = !hasFile;
+    discardButton.disabled = !hasFile;
+
     if (file) {
+      // Preview the image
       const reader = new FileReader();
       reader.onload = function (event) {
         document.getElementById('profilePicture').src = event.target.result;
       };
       reader.readAsDataURL(file);
     }
+  });
+
+  // Clear file input and disable buttons when discarding
+  discardButton.addEventListener('click', function () {
+    // Clear the file input
+    profilePictureInput.value = '';
+
+    // Disable buttons
+    saveButton.disabled = true;
+    discardButton.disabled = true;
+
+    // Reload the page
+    location.reload();
+  });
+
+  // Disable buttons after form submission
+  profileForm.addEventListener('submit', function () {
+    saveButton.disabled = true;
+    discardButton.disabled = true;
   });
 </script>
 
