@@ -69,23 +69,23 @@
           <h4 class="fw-bold mb-4">By The Numbers</h4>
 
           <div class="mb-4">
-            <h2 class="fw-bold text-success mb-1">15,847</h2>
-            <p class="text-secondary mb-0">Cheaters Reported</p>
+            <h2 class="fw-bold text-success mb-1">{{ total_reports|default:"0" }}</h2>
+            <p class="text-secondary mb-0">Reports Created</p>
           </div>
 
           <div class="mb-4">
-            <h2 class="fw-bold text-success mb-1">8,392</h2>
-            <p class="text-secondary mb-0">Accounts Banned</p>
+            <h2 class="fw-bold text-success mb-1">{{ total_comments|default:"0" }}</h2>
+            <p class="text-secondary mb-0">Comments Posted</p>
           </div>
 
           <div class="mb-4">
-            <h2 class="fw-bold text-success mb-1">25,000+</h2>
+            <h2 class="fw-bold text-success mb-1">{{ total_users|default:"0" }}</h2>
             <p class="text-secondary mb-0">Active Community Members</p>
           </div>
 
           <div>
-            <h2 class="fw-bold text-success mb-1">42</h2>
-            <p class="text-secondary mb-0">Games Covered</p>
+            <h2 class="fw-bold text-success mb-1">{{ total_news|default:"0" }}</h2>
+            <p class="text-secondary mb-0">News Articles</p>
           </div>
         </div>
 
