@@ -28,7 +28,7 @@
 
             <!-- Profile Picture -->
             <div class="text-center mb-4">
-              <img id="profilePicture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 2px solid rgba(46, 204, 113, 0.3);">
+              <img id="profilePicture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" class="rounded-circle profile-settings-profile-picture">
             </div>
 
             <!-- Upload Button -->
@@ -80,7 +80,7 @@
             </form>
         </div>
         <div class="glass-card mb-4">
-          <h3 class="text-success mb-4">Profile Info</h5>
+          <h3 class="text-success mb-4">Profile Info</h3>
             <p class="text-secondary mb-0">
               <i class="fas fa-calendar me-2"></i>Member since: {{ user.date_joined|date:"F j, Y" }}<br>
               <i class="fas fa-file-alt me-2"></i>Total Reports: {{ reports|length }}<br>
@@ -103,8 +103,8 @@
 
                   <!-- REPORT THUMBNAIL -->
                   <div class="col-12 col-md-4 col-lg-3">
-                    <div style="aspect-ratio: 4/3; background-color: #1a1a1a; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                      <img src="https://img.youtube.com/vi/{{ report.youtube_url|youtube_video_id }}/0.jpg" alt="Youtube thumbnail for report titled: {{ report.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+                    <div class="list-item-thumbnail-container">
+                      <img src="https://i.ytimg.com/vi/{{ report.youtube_url|youtube_video_id }}/0.jpg" alt="Youtube thumbnail for report titled: {{ report.title }}" class="list-item-thumbnail" />
                     </div>
                   </div>
 
@@ -117,7 +117,7 @@
                       </div>
                       <small class="text-secondary">{{ report.created_on|date:"M d, Y" }}</small>
                     </div>
-                    <p class="text-secondary mb-3 report-description">
+                    <p class="text-secondary mb-3 report-description-user-profile">
                       {{ report.description|truncatewords:20 }}
                     </p>
                     <div class="d-flex gap-2 flex-wrap mb-3">
@@ -227,7 +227,7 @@
       </div>
       <div class="modal-footer border-secondary">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form method="POST" action="{% url 'delete_report' report_id=report.id %}" style="display: inline;">
+        <form method="POST" action="{% url 'delete_report' report_id=report.id %}" class="delete-confirmation-form">
           {% csrf_token %}
           <input type="hidden" name="next" value="user_profile">
           <button type="submit" class="btn btn-danger">Delete Report</button>
@@ -238,52 +238,9 @@
 </div>
 {% endfor %}
 {% endif %}
+{% endblock content %}
 
-
-<!-- JavaScript for Profile Picture Upload -->
-<script>
-  const profilePictureInput = document.getElementById('profilePictureInput');
-  const saveButton = document.getElementById('saveButton');
-  const discardButton = document.getElementById('discardButton');
-  const profileForm = document.getElementById('profileForm');
-
-  // Enable/disable buttons based on file selection
-  profilePictureInput.addEventListener('change', function (e) {
-    const file = e.target.files[0];
-
-    // Enable buttons if a file is selected
-    const hasFile = file !== undefined && file !== null;
-    saveButton.disabled = !hasFile;
-    discardButton.disabled = !hasFile;
-
-    if (file) {
-      // Preview the image
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        document.getElementById('profilePicture').src = event.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
-
-  // Clear file input and disable buttons when discarding
-  discardButton.addEventListener('click', function () {
-    // Clear the file input
-    profilePictureInput.value = '';
-
-    // Disable buttons
-    saveButton.disabled = true;
-    discardButton.disabled = true;
-
-    // Reload the page
-    location.reload();
-  });
-
-  // Disable buttons after form submission
-  profileForm.addEventListener('submit', function () {
-    saveButton.disabled = true;
-    discardButton.disabled = true;
-  });
-</script>
-
-{% endblock %}
+{% block extras %}
+<!-- Change Profile Picture JavaScript -->
+<script src="{% static 'js/change_profile_picture.js' %}"></script>
+{% endblock extras %}

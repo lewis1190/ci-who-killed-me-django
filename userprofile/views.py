@@ -11,6 +11,23 @@ from cheaterreports.models import CheaterPost
 
 @login_required
 def profile(request):
+    """
+    Load and update the user profile page.
+
+    **Context**
+
+    ``user_profile``
+        The UserProfile object for the logged-in user.
+    ``form``
+        The UserProfileForm for updating profile information.
+    ``page_obj``
+        The paginated cheater reports created by the user.
+    ``reports``
+        The list of cheater reports on the current page.
+
+    **Template:**
+    :template:`userprofile/user_profile.html`
+    """
     user_profile = UserProfile.objects.get(user=request.user)
 
     if request.method == 'POST':

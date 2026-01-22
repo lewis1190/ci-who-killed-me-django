@@ -32,7 +32,7 @@
             </div>
           </div>
 
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
 
           <div class="row g-3 mt-3">
             <div class="col-sm-6">
@@ -59,8 +59,8 @@
           <h4 class="fw-bold mb-3">📹 Video Evidence</h4>
 
           {% if report.youtube_url %}
-          <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube-nocookie.com/embed/{{ report.youtube_url|youtube_video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy='strict-origin-when-cross-origin' allowfullscreen>
+          <div class="youtube-iframe-container">
+            <iframe class="youtube-iframe" src="https://www.youtube-nocookie.com/embed/{{ report.youtube_url|youtube_video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy='strict-origin-when-cross-origin' allowfullscreen>
             </iframe>
           </div>
           {% else %}
@@ -77,81 +77,22 @@
         <!-- DESCRIPTION CARD -->
         <div class="glass-card mb-4">
           <h4 class="fw-bold mb-3">📝 Description</h4>
-          <p class="text-secondary" style="white-space: pre-wrap;">{{ report.description }}</p>
+          <p class="text-secondary report-detail-description">{{ report.description }}</p>
         </div>
 
         <!-- HACK TYPES CARD -->
         <div class="glass-card mb-4">
           <h4 class="fw-bold mb-3">🎯 Suspected Hack Types</h4>
 
-          <!-- TODO: Make this more concise -->
+          {% get_hack_types as hack_types %}
           <div class="row g-2">
+            {% for hack_type, label in hack_types %}
             <div class="col-auto">
-              {% if 'aimbot' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Aimbot
+              <span class="badge report-detail-hack-badge {% if hack_type in report.suspected_hack_types %}bg-danger{% else %}bg-secondary{% endif %}">
+                <i class="fas fa-{% if hack_type in report.suspected_hack_types %}check{% else %}times{% endif %} me-1"></i>{{ label }}
               </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Aimbot
-              </span>
-              {% endif %}
             </div>
-            <div class="col-auto">
-              {% if 'esp' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>ESP
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>ESP
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'wallhack' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Wallhack
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Wallhack
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'speedhack' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Speed Hack
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Speed Hack
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'noclip' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>No Clip
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>No Clip
-              </span>
-              {% endif %}
-            </div>
-            <div class="col-auto">
-              {% if 'other' in report.suspected_hack_types %}
-              <span class="badge bg-danger" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-check me-1"></i>Other
-              </span>
-              {% else %}
-              <span class="badge bg-secondary" style="padding: 0.5rem 0.75rem; font-size: 0.9rem;">
-                <i class="fas fa-times me-1"></i>Other
-              </span>
-              {% endif %}
-            </div>
+            {% endfor %}
           </div>
         </div>
 
@@ -164,27 +105,27 @@
           <form method="POST" action="{% url 'add_comment' report_id=report.id %}" id="commentForm" class="mb-4">
             {% csrf_token %}
             <div class="mb-3">
-              <textarea class="form-control bg-dark text-light" id="id_body" name="body" placeholder="Leave a comment..." rows="3" style="resize: none;"></textarea>
+              <textarea class="form-control bg-dark text-light comment-textarea" id="id_body" name="body" placeholder="Leave a comment..." rows="3"></textarea>
             </div>
             <div class="d-flex justify-content-end">
               <button type="submit" id="submitButton" class="btn btn-primary btn-sm">Post Comment</button>
             </div>
           </form>
 
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
           {% else %}
           <div class="alert alert-warning" role="alert">
             <i class="fas fa-lock me-2"></i><a href="{% url 'account_login' %}" class="alert-link">Sign in</a> to leave a comment.
           </div>
 
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
           {% endif %}
 
           <!-- COMMENTS LIST -->
           <div class="comments-list">
             {% for comment in report.comments.all %}
             <div class="d-flex gap-3 mb-4">
-              <img src="{% if comment.author.profile.profile_picture %}{{ comment.author.profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="User Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover; flex-shrink: 0;">
+              <img src="{% if comment.author.profile.profile_picture %}{{ comment.author.profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="User Avatar" class="rounded-circle comment-profile-pic">
               <div class="flex-grow-1">
                 <div class="d-flex justify-content-between align-items-start mb-2">
                   <div>
@@ -253,7 +194,7 @@
           {% endif %}
 
           {% if report.author == user %}
-          <hr class="border-secondary" style="opacity: 0.3;">
+          <hr class="border-secondary">
           <div class="d-grid gap-2">
             <a href="{% url 'edit_report' report_id=report.id %}" class="btn btn-warning btn-sm">
               <i class="fas fa-edit me-1"></i>Edit Report
@@ -291,9 +232,9 @@
 
           <div class="d-flex align-items-center gap-3 mb-3">
             {% if report.author.profile.profile_picture %}
-            <img src="{{ report.author.profile.profile_picture.url }}" alt="Reporter" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+            <img src="{{ report.author.profile.profile_picture.url }}" alt="Reporter" class="rounded-circle reporter-profile-pic">
             {% else %}
-            <img src="{% static 'images/nobody.jpg' %}" alt="Reporter" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+            <img src="{% static 'images/nobody.jpg' %}" alt="Reporter" class="rounded-circle reporter-profile-pic">
             {% endif %}
             <div>
               <p class="text-white fw-bold small mb-1">{{ report.author.username }}</p>
@@ -324,7 +265,7 @@
       </div>
       <div class="modal-footer border-secondary">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form method="POST" action="{% url 'delete_report' report_id=report.id %}" style="display: inline;">
+        <form method="POST" action="{% url 'delete_report' report_id=report.id %}" class="delete-confirmation-form">
           {% csrf_token %}
           <button type="submit" class="btn btn-danger">Delete Report</button>
         </form>
@@ -346,7 +287,7 @@
       </div>
       <div class="modal-footer border-secondary">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form method="POST" style="display: inline;">
+        <form method="POST" class="delete-confirmation-form">
           {% csrf_token %}
           <a id="deleteConfirm" href="#" class="btn btn-danger">Delete Comment</a>
         </form>
