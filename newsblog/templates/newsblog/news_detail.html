@@ -14,7 +14,7 @@
         <!-- ARTICLE CARD -->
         <div class="glass-card mb-4">
           <!-- ARTICLE IMAGE -->
-          <img src="{% if post.featured_image.public_id != 'placeholder' %}{{ post.featured_image.url }}{% else %}{% static 'images/wkm_news_fallback.png' %}{% endif %}" alt="Article Image: {{ post.title }}" class="w-100 mb-4" style="aspect-ratio: 2 / 1; border-radius: 8px; object-fit: cover;">
+          <img src="{% if post.featured_image.public_id != 'placeholder' %}{{ post.featured_image.url }}{% else %}{% static 'images/wkm_news_fallback.png' %}{% endif %}" alt="Article Image: {{ post.title }}" class="w-100 mb-4 news-detail-article-image">
 
           <!-- ARTICLE HEADER -->
           <h1 class="fw-bold mb-2">{{ post.title }}</h1>

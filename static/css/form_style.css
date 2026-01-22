@@ -1,0 +1,147 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+/* CUSTOM INPUT STYLES */
+.form-control {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+.form-control::-moz-placeholder {
+  color: #aaa;
+}
+
+.form-control:-ms-input-placeholder {
+  color: #aaa;
+}
+
+.form-control::-ms-input-placeholder {
+  color: #aaa;
+}
+
+.form-control::placeholder {
+  color: #aaa;
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: #2ecc71;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+/* BUTTON TWEAKS */
+.btn-success {
+  background: -o-linear-gradient(315deg, #2ecc71, #27ae60);
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  border: none;
+}
+
+.btn-success:hover {
+  opacity: 0.9;
+}
+
+/* CRISPY FORMS STYLING */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  color: #e0e0e0;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-control,
+.form-select,
+textarea.form-control {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: #2ecc71;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+.form-control:disabled,
+.form-select:disabled,
+textarea.form-control:disabled {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.form-check-input {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.form-check-input:checked {
+  background-color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.form-check-input:focus {
+  border-color: #2ecc71;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+.form-check-label {
+  color: #e0e0e0;
+  margin-top: 0.25rem;
+}
+
+/* FORM ERRORS */
+.invalid-feedback,
+.errorlist {
+  color: #ff6b6b;
+  font-size: 0.875rem;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.is-invalid .form-control,
+.is-invalid .form-select {
+  border-color: #ff6b6b;
+}
+
+.is-invalid .form-control:focus,
+.is-invalid .form-select:focus {
+  border-color: #ff6b6b;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25);
+}
+
+.errorlist li {
+  list-style: none;
+  margin-bottom: 0.5rem;
+}
+
+.errorlist li:before {
+  content: "⚠ ";
+  color: #ff6b6b;
+  font-weight: bold;
+}

@@ -26,7 +26,7 @@
           <!-- ARTICLE CARD -->
           <div class="col-lg-6 col-xl-4">
             <div class="glass-card h-100 d-flex flex-column">
-              <img src="{% if post.featured_image.public_id != 'placeholder' %}{{ post.featured_image.url }}{% else %}{% static 'images/wkm_news_fallback.png' %}{% endif %}" alt="News Article: {{ post.title }}" class="mb-3" style="border-radius: 8px; object-fit: cover; height: 200px;">
+              <img src="{% if post.featured_image.public_id != 'placeholder' %}{{ post.featured_image.url }}{% else %}{% static 'images/wkm_news_fallback.png' %}{% endif %}" alt="News Article: {{ post.title }}" class="mb-3 news-list-article-image">
               <h5 class="fw-bold mb-2">{{ post.title }}</h5>
               <small class="text-secondary mb-3">{{ post.created_on|date:"F j, Y" }}</small>
               <p class="text-secondary flex-grow-1 mb-3">
