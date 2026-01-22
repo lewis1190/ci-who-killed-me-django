@@ -21,7 +21,7 @@
         <!-- SEARCH -->
         <div class="glass-card mb-4">
           <form method="GET" action="{% url 'list_reports' %}" class="input-group input-group-lg">
-            <input type="text" class="form-control" placeholder="Search for cheater reports..." name="suspect" />
+            <input type="text" class="form-control" placeholder="Search for cheater reports..." name="suspect">
             <button class="btn btn-success px-4" type="submit">Search</button>
           </form>
         </div>
@@ -49,7 +49,7 @@
           <div class="{% if not forloop.last %}mb-3 pb-3 border-bottom{% endif %} d-flex flex-column flex-lg-row gap-3 align-items-start">
             <img src="{% if post.featured_image.public_id != 'placeholder' %}{{ post.featured_image.url }}{% else %}{% static 'images/wkm_news_fallback.png' %}{% endif %}" alt="News: {{ post.title }}" class="news-card-img flex-shrink-0 order-lg-0 order-first">
             <div class="flex-grow-1 order-lg-1 order-2">
-              <h6 class="mb-1">{{ post.title }}</h6>
+              <h5 class="h6 mb-1">{{ post.title }}</h5>
               <small class="text-secondary">{{ post.created_on|date:"M d, Y" }}</small>
               <p class="text-secondary mt-2 mb-0">{% if post.excerpt %}{{ post.excerpt|truncatewords:15 }}{% else %}{{ post.content|truncatewords:15|striptags }}{% endif %}</p>
             </div>
@@ -83,7 +83,7 @@
                 <img src="https://i.ytimg.com/vi/{{ report.youtube_url|youtube_video_id }}/default.jpg" alt="YouTube thumbnail" class="clip-thumbnail-img">
               </div>
               <div class="flex-grow-1 order-lg-1 order-2">
-                <h6 class="mb-0 fw-bold">{{ report.title }}</h6>
+                <h5 class="h6 mb-0 fw-bold">{{ report.title }}</h5>
                 <small class="text-secondary"><strong>Reported by:</strong> {{ report.author.username }}</small>
                 <br>
                 <small class="text-secondary"><strong>Suspect:</strong> {{ report.suspect_username }}</small>
