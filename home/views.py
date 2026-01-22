@@ -8,6 +8,19 @@ from newsblog.models import NewsPost
 
 
 def home(request):
+    """
+    Load the home page with recent cheater reports and latest news.
+
+    **Context**
+
+    ``recent_reports``
+        The top 6 highest-scoring cheater reports from the last 30 days.
+    ``latest_news``
+        The 5 latest published news articles.
+
+    **Template:**
+    :template:`home/home.html`
+    """
     # Get the 6 highest-scoring reports from the last 30 days
     one_month_ago = timezone.now() - timedelta(days=30)
     top_reports = CheaterPost.objects.filter(
