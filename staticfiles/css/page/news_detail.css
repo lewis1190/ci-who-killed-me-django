@@ -1,5 +1,13 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .news-detail-article-image {
     aspect-ratio: 2 / 1;
     border-radius: 8px;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
 }

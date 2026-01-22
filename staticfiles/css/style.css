@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /* TEMPLATE-SPECIFIC STYLESHEETS */
 @import url('page/base.css');
 @import url('page/home.css');
@@ -44,6 +51,17 @@ hr.border-secondary {
 .hero-section .overlay {
   position: absolute;
   inset: 0;
+  background: -webkit-gradient(
+    linear,
+    left top, right bottom,
+    from(rgba(5, 10, 25, 0.9)),
+    to(rgba(10, 15, 35, 0.8))
+  );
+  background: -o-linear-gradient(
+    top left,
+    rgba(5, 10, 25, 0.9),
+    rgba(10, 15, 35, 0.8)
+  );
   background: linear-gradient(
     to bottom right,
     rgba(5, 10, 25, 0.9),
@@ -56,9 +74,11 @@ hr.border-secondary {
   background: rgba(20, 25, 40, 0.75);
   border-radius: 16px;
   padding: 24px;
-  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+          backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
 }
 
 /* THUMBNAIL STYLES - USED IN user_profile.html AND reports_list.html */
@@ -66,15 +86,22 @@ hr.border-secondary {
     aspect-ratio: 4/3;
     background-color: #1a1a1a;
     border-radius: 4px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .list-item-thumbnail {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     border-radius: 4px;
 }
 

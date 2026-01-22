@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /* User Profile Template Specific Styles */
 
 /* User Profile Report Description Two-Line Clamp */
@@ -11,6 +18,7 @@
 .profile-settings-profile-picture {
   width: 150px;
   height: 150px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border: 2px solid rgba(46, 204, 113, 0.3);
 }

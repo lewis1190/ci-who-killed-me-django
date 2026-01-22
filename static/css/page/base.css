@@ -1,8 +1,16 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /* Base Template Specific Styles */
 
 /* NAVBAR BLUR */
 .bg-blur {
-  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
   background: rgba(10, 15, 25, 0.85);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -12,18 +20,22 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 /* DROPDOWN MENU */
 .dropdown-menu {
   background-color: rgba(10, 15, 25, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+          backdrop-filter: blur(12px);
 }
 
 .dropdown-menu .dropdown-item {
   color: #e0e0e0;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
@@ -41,6 +53,8 @@
   background-color: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #e0e0e0;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
 }
 
@@ -58,7 +72,8 @@
   background-color: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.25);
   color: #2ecc71;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .dropdown-toggle.show {
@@ -73,10 +88,18 @@
   height: 40px;
   padding: 0;
   border-radius: 50%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   font-size: 1.1rem;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -90,8 +113,11 @@
   background-color: #2ecc71;
   color: #fff;
   border-color: #2ecc71;
-  transform: scale(1.15);
-  box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+  -webkit-transform: scale(1.15);
+      -ms-transform: scale(1.15);
+          transform: scale(1.15);
+  -webkit-box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+          box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
 }
 
 /* MESSAGES CONTAINER */
@@ -105,6 +131,7 @@
 
 .custom-message {
   margin-bottom: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
 }
