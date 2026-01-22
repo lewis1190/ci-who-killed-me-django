@@ -28,7 +28,7 @@
 
             <!-- Profile Picture -->
             <div class="text-center mb-4">
-              <img id="profilePicture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 2px solid rgba(46, 204, 113, 0.3);">
+              <img id="profilePicture" src="{% if user_profile.profile_picture %}{{ user_profile.profile_picture.url }}{% else %}{% static 'images/nobody.jpg' %}{% endif %}" alt="Profile Picture" class="rounded-circle profile-settings-profile-picture">
             </div>
 
             <!-- Upload Button -->
@@ -103,8 +103,8 @@
 
                   <!-- REPORT THUMBNAIL -->
                   <div class="col-12 col-md-4 col-lg-3">
-                    <div style="aspect-ratio: 4/3; background-color: #1a1a1a; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                      <img src="https://i.ytimg.com/vi/{{ report.youtube_url|youtube_video_id }}/0.jpg" alt="Youtube thumbnail for report titled: {{ report.title }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;" />
+                    <div class="list-item-thumbnail-container">
+                      <img src="https://i.ytimg.com/vi/{{ report.youtube_url|youtube_video_id }}/0.jpg" alt="Youtube thumbnail for report titled: {{ report.title }}" class="list-item-thumbnail" />
                     </div>
                   </div>
 
@@ -227,7 +227,7 @@
       </div>
       <div class="modal-footer border-secondary">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form method="POST" action="{% url 'delete_report' report_id=report.id %}" style="display: inline;">
+        <form method="POST" action="{% url 'delete_report' report_id=report.id %}" class="delete-confirmation-form">
           {% csrf_token %}
           <input type="hidden" name="next" value="user_profile">
           <button type="submit" class="btn btn-danger">Delete Report</button>

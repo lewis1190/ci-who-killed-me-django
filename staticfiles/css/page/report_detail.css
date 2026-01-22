@@ -41,7 +41,3 @@
     flex-shrink: 0;
 }
 
-/* DELETE REPORT CONFIRMATION STYLES */
-.delete-confirmation-form {
-    display: inline;
-}

@@ -1,0 +1,5 @@
+.news-list-article-image {
+    border-radius: 8px;
+    object-fit: cover;
+    height: 200px;
+}
