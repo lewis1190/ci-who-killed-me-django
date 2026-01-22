@@ -6,6 +6,20 @@ from .models import NewsPost
 
 
 def news_list(request):
+    """
+    Load the news list page with published news articles.
+
+    **Context**
+
+    ``page_obj``
+        The paginated news articles for the current page.
+    ``posts``
+        The list of news articles on the current page.
+
+    **Template:**
+    :template:`newsblog/news_list.html`
+    """
+
     # Retrieve published news articles ordered by newest first
     posts = NewsPost.objects.filter(status=1).order_by('-created_on')
 
@@ -22,6 +36,24 @@ def news_list(request):
 
 
 def news_detail(request, id):
+    """
+    Load the news detail page for a specific article.
+
+    **Context**
+
+    ``post``
+        The news article object.
+    ``recent_posts``
+        A list of recent news articles excluding the current one.
+    ``previous_post``
+        The previous news article (if any).
+    ``next_post``
+        The next news article (if any).
+
+    **Template:**
+    :template:`newsblog/news_detail.html`
+    """
+
     # Retrieve a specific published news article by id
     post = get_object_or_404(NewsPost, pk=id, status=1)
 
