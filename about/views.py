@@ -20,6 +20,10 @@ def about(request):
         The total number of registered users.
     ``total_news``
         The total number of published news articles.
+
+    **Template:**
+
+    :template:`about/about.html`
     """
     # Get total cheater reports
     total_reports = CheaterPost.objects.count()

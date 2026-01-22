@@ -14,6 +14,24 @@ from userprofile.models import UserProfile
 
 
 def list_reports(request: HttpRequest):
+    """
+    Fetch a list of cheater reports with optional search and sorting.
+
+    **Context**
+
+    ``suspect_query``
+        The search query for suspect usernames (optional).
+    ``sort_by``
+        The sorting preference, either 'top' or 'recent'.
+    ``reports``
+        The paginated list of cheater reports.
+    ``page_obj``
+        The paginator page object for navigation.
+
+    **Template:**
+
+    :template:`cheaterreports/reports_list.html`
+    """
     # Get the search query from the URL parameter
     suspect_query = request.GET.get('suspect', '').strip()
     # Get the sort preference (default to 'top' for no search query)
@@ -56,6 +74,18 @@ def list_reports(request: HttpRequest):
 
 @login_required
 def new_report(request: HttpRequest):
+    """
+    Create a new cheater report.
+
+    **Context**
+
+    ``form_data``
+        The previously submitted form data in case of errors.
+
+    **Template:**
+
+    :template:`cheaterreports/report_form.html`
+    """
     if request.method == 'POST':
         title = request.POST.get('title')
         suspect_username = request.POST.get('suspect_username')
@@ -116,6 +146,20 @@ def new_report(request: HttpRequest):
 
 
 def report_detail(request: HttpRequest, report_id: int):
+    """
+    Display the details of a specific cheater report.
+
+    **Context**
+
+    ``report``
+        The cheater report object.
+    ``user_vote``
+        The current user's vote on the report, if any.
+
+    **Template:**
+
+    :template:`cheaterreports/report_detail.html`
+    """
     report = get_object_or_404(CheaterPost, pk=report_id)
 
     user_vote = None
@@ -131,6 +175,23 @@ def report_detail(request: HttpRequest, report_id: int):
 
 @login_required
 def report_edit(request: HttpRequest, report_id: int):
+    """
+    Edit an existing cheater report.
+
+    **Context**
+
+    ``report``
+        The cheater report object to be edited.
+    ``is_edit``
+        A boolean indicating that this is an edit operation.
+        Dynamically used in the template to change wording
+    ``form_data``
+        The previously submitted form data in case of errors.
+
+    **Template:**
+
+    :template:`cheaterreports/report_form.html`
+    """
     report = get_object_or_404(CheaterPost, pk=report_id)
 
     # Check if the user is the author
@@ -210,6 +271,14 @@ def report_edit(request: HttpRequest, report_id: int):
 
 @login_required
 def report_delete(request: HttpRequest, report_id: int):
+    """
+    Delete a cheater report if the user is the author.
+
+    **Context**
+
+    ``report``
+        The cheater report object to be deleted.
+    """
     report = get_object_or_404(CheaterPost, pk=report_id)
 
     # Check if the user is the author
@@ -238,12 +307,23 @@ def report_delete(request: HttpRequest, report_id: int):
 
 
 # UPVOTE / DOWNVOTE LOGIC
+# TODO: Refactor to reduce code amount. Offload to a helper function?
 @login_required
 def vote_report(request: HttpRequest, report_id: int, vote_type: str):
     """
     Handle voting on a report. Vote types are 'up' or 'down'.
     If the user has already voted the same way, remove the vote.
     If the user voted the opposite way, change the vote.
+
+    **Context**
+
+    ``report``
+        The cheater report object being voted on.
+    ``vote_type``
+        The type of vote: 'up' or 'down'.
+
+    **Template:**
+    :template:`cheaterreports/report_detail.html`
     """
     if vote_type not in ['up', 'down']:
         return JsonResponse({'error': 'Invalid vote type'}, status=400)
@@ -331,6 +411,13 @@ def vote_report(request: HttpRequest, report_id: int, vote_type: str):
 def add_comment(request: HttpRequest, report_id: int):
     """
     Add a comment to a report.
+
+    **Context**
+    ``report``
+        The cheater report object to which the comment is added.
+
+    **Template:**
+    :template:`cheaterreports/report_detail.html`
     """
     report = get_object_or_404(CheaterPost, pk=report_id)
 
@@ -361,6 +448,13 @@ def add_comment(request: HttpRequest, report_id: int):
 def delete_comment(request: HttpRequest, comment_id: int):
     """
     Delete a comment if the user is the author.
+
+    **Context**
+    ``comment``
+        The comment object to be deleted.
+
+    **Template:**
+    :template:`cheaterreports/report_detail.html`
     """
     comment = get_object_or_404(Comment, pk=comment_id)
     report_id = comment.post.pk
@@ -388,6 +482,14 @@ def delete_comment(request: HttpRequest, comment_id: int):
 def edit_comment(request: HttpRequest, comment_id: int):
     """
     Edit a comment if the user is the author.
+
+    **Context**
+
+    ``comment``
+        The comment object to be edited.
+
+    **Template:**
+    :template:`cheaterreports/report_detail.html`
     """
     comment = get_object_or_404(Comment, pk=comment_id)
     report_id = comment.post.pk
