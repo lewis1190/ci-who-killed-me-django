@@ -6,13 +6,58 @@
 
 ## Table of Contents
 
-Placeholder
+<details>
+
+<summary>Table of Contents (click to expand)</summary>
+
+- [Introduction](#introduction)
+- [Preview Screenshots](#preview-screenshots)
+  -   [Desktop](#desktop)
+  -   [Tablet (Simulated on an iPad A16)](#tablet-simulated-on-an-ipad-a16)
+  -   [Mobile (Simulated on an iPhone 12 Pro)](#mobile-simulated-on-an-iphone-12-pro)
+- [Features](#features)
+  -   [Existing Features](#existing-features)
+  -   [Future Features](#future-features)
+- [User Stories](#user-stories)
+- [Planning / User Experience / UX Design](#planning--user-experience--ux-design)
+  - [Typography: Font Choices](#typography-font-choices)
+  - [Typography: Color Palette](#typography-color-palette)
+  - [Wireframes](#wireframes)
+  - [Database Design](#database-design)
+    -   [Initial ERD](#initial-erd)
+    -   [Final ERD](#final-erd)
+- [Agile Project Management](#agile-project-management)
+  -   [GitHub Projects Board](#github-projects-board)
+  -   [GitHub Repo Branch Methodology](#github-repo-branch-methodology)
+- [Testing and Quality Assurance](#testing-and-quality-assurance)
+  -   [Ensuring Security](#ensuring-security)
+  -   [Manual Testing](#manual-testing)
+  -   [Automated Testing - Unit Tests](#automated-testing---unit-tests)
+  -   [Lighthouse Auditing](#lighthouse-auditing)
+  -   [Validation Testing - HTML](#validation-testing---html)
+  -   [Validation Testing - CSS](#validation-testing---css)
+  -   [Validation Testing - JavaScript](#validation-testing---javascript)
+  -   [Validation Testing - Python](#validation-testing---python)
+- [How AI Was Used in This Project](#how-ai-was-used-in-this-project)
+  -   [Design](#design)
+  -   [Development](#development)
+  -   [Testing](#testing)
+  -   [Debugging](#debugging)
+- [Deployment](#deployment)
+  -   [Prepare the Repo](#prepare-the-repo)
+  -   [Deploying to Heroku](#deploying-to-heroku)
+- [Credits & Copyright](#credits--copyright)
+  -   [Content](#content)
+
+</details>
 
 ## Introduction
 
 "Who Killed Me" is an online forum dedicated to people pointing out when they have lost to a cheater in a video game. If the user can upload a YouTube video, they can create a post on the site, fill out some details about the incident, and share it with the community. Other users can then view the post, comment on it, and vote on whether they believe the report is valid.
 
 The site also has a "News" section, where users can read articles about cheating in video games, updates on anti-cheat measures, and other related topics. These news articles are controlled and edited solely by site staff.
+
+The idea for this site was inspired by [expose.gg](https://www.expose.gg/), a similar platform dedicated to reporting and reviewing reports for the game "Counter Strike 2". "Who Killed Me" aims to expand on this idea, allowing users to report cheaters from **any** game, with basic forum functionality.
 
 The platform was created in Django `6.0.1`, and built with Python `3.12.10`.
 
@@ -75,6 +120,7 @@ During this project, I wanted to implement the basic features of a forum website
 - **Report Creation:** Authenticated users can create new reports about cheating incidents, including details such as the game, platform, description, and a YouTube video link.
 
 - **Commenting System:** Users can comment on reports to discuss the incident, share their opinions, or provide additional information.
+
 - **Voting System:** Users can upvote or downvote reports to indicate whether they believe the report is valid or not. The total score is displayed on the report page.
 
 - **User Profiles:** Each user has a profile page displaying their reports. They can also update their profile picture.
@@ -642,6 +688,52 @@ Below is a screenshot of that conversation:
 
 This project is currently using Heroku for deployment and hosting. The steps taken to deploy the project are as follows:
 
+### Prepare the Repo
 
+1. Ensure all installed packages are saved to a `requirements.txt` file by running the following command in the terminal:
+
+   ```bash
+   pip freeze > requirements.txt
+   ```
+
+2. Create a `Procfile` in the root directory of the project, with the following content:
+
+   ```text
+   web: gunicorn whokilledme.wsgi
+   ```
+
+3. Ensure that the `whokilledme/settings.py` file is configured to use environment variables for sensitive information, such as the secret key and database URL.
+
+4. Create a `.python-version` file in the root directory of the project. This should be identical to the version of Python being used locally to ensure the Heroku environment matches.
+
+### Deploying to Heroku
+
+1. Create a new app on the [Heroku Dashboard](https://dashboard.heroku.com/apps).
+2. In the "Deploy" tab of the app, connect the GitHub repository containing the project.
+3. Specify the `heroku/python` buildpack for the app.
+4. In the "Settings" tab of the app, add the necessary environment variables in the "Config Vars" section. For my repo specifically, these are:
+
+   -   `CLOUDINARY_URL` - Cloudinary API URL for media storage.
+   -   `DATABASE_URL` - Heroku Postgres database URL.
+   -   `SECRET_KEY` - Django secret key.
+
+5. When that's all set up, go to the "Deploy" tab, and either enable automatic deploys from the `main` branch, or manually deploy a specific branch. **NOTE:** Ensure that the branch being deployed and the target database are in sync!
+6. With the above steps complete, the app should now be running on Heroku, and you should be able to use the app as you would running it locally.
+
+![Heroku Settings Page Screenshot](./readme_docs/deployment1.png)
+*1. The Heroku Settings Page for Who Killed Me.*
+
+![Heroku Deploy Page Screenshot](./readme_docs/deployment2.png)
+*2. The Heroku Deploy Page for Who Killed Me.*
 
 ## Credits & Copyright
+
+- Whilst this project is primarily my own work, I have used snippets of Javascript for the comments functionality originally from the Django "I Think Therefore I Blog" tutorial. This code has been modified to fit the needs of this project.
+
+- Shoutout again to [expose.gg](https://www.expose.gg/) for the initial inspiration!
+
+### Content
+
+- As this is a site based around video games, all game-related content, including images of games present in the news articles, and videos within the reports, are the property of their respective owners.
+
+- For any copyright issues related to the **YouTube videos** embedded within user reports, please open the YouTube video in a new tab, and use YouTube's built-in copyright reporting tools.
