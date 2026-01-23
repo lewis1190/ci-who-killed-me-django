@@ -360,17 +360,233 @@ User security was further verified and validated during the manual testing phase
 
 ### Manual Testing
 
+To ensure the site remains responsive and functional across different device types and operating systems, I performed a set of manual tests. As I had a physical iPad, iPhone, Android and Windows 10 device, I was able to test the deployed site on real hardware.
+
+The below tests were conducted on the latest deployment of the project on Heroku on 23/01/2026
+
+#### iPad A16 (iPadOS 26.2)
+
+| Test Case | Expected Result | Actual Result | Pass / Fail |
+| --------- | --------------- | ------------- | ----------- |
+| Registration / Login / Logout | User should be able to register an account with a username and password, then login to the platform. When finished, they should be able to log out. | Pass | Pass |
+| Admin area denial | A user that has signed up on the site should not be able to access the Django administrator panel. | Pass | Pass |
+| News Stories | A visitor (both with and without an account) should be able to view news articles on the front page, view a list of news articles and click on an article for the full story | Pass | Pass |
+| Create Report | A logged-in user should be able to create a new report, filling out all required fields, and submitting the form successfully. | Pass | Pass |
+| View Report | A visitor (both with and without an account) should be able to view a report in full detail, including the embedded YouTube video, description, game details, comments and voting buttons. | Pass | Pass |
+| Comment on Report | A logged-in user should be able to post a comment on a report, and see their comment appear immediately. | Pass | Pass |
+| Vote on Report | A logged-in user should be able to upvote or downvote a report, and see the score update immediately. They should also be able to change or remove their vote. | Pass | Pass |
+| Voting on own Report | A logged-in user should not be able to vote on their own report, even when hitting the endpoint directly. | Pass | Pass |
+| User Profile | A logged-in user should be able to view their profile page, see a list of their reports, and update their profile picture. | Pass | Pass |
+| Deleting Other User's Content | A logged-in user should not be able to delete or edit another user's report or comment, even when hitting the endpoint directly. | Pass | Pass |
+| Searching for Username | A visitor (both with and without an account) should be able to search for reports by in-game username, and see a list of matching results. | Pass | Pass |
+| Sorting the Report List | A visitor (both with and without an account) should be able to sort the report list by "Most Recent" and "Top Reports". If they change the sort option whilst a username is typed into the search box, the filter should be preserved. | Pass | Pass |
+
+#### iPhone SE (iOS 26.2)
+
+| Test Case | Expected Result | Actual Result | Pass / Fail |
+| --------- | --------------- | ------------- | ----------- |
+| Registration / Login / Logout | User should be able to register an account with a username and password, then login to the platform. When finished, they should be able to log out. | Pass | Pass |
+| Admin area denial | A user that has signed up on the site should not be able to access the Django administrator panel. | Pass | Pass |
+| News Stories | A visitor (both with and without an account) should be able to view news articles on the front page, view a list of news articles and click on an article for the full story | Pass | Pass |
+| Create Report | A logged-in user should be able to create a new report, filling out all required fields, and submitting the form successfully. | Pass | Pass |
+| View Report | A visitor (both with and without an account) should be able to view a report in full detail, including the embedded YouTube video, description, game details, comments and voting buttons. | Pass | Pass |
+| Comment on Report | A logged-in user should be able to post a comment on a report, and see their comment appear immediately. | Pass | Pass |
+| Vote on Report | A logged-in user should be able to upvote or downvote a report, and see the score update immediately. They should also be able to change or remove their vote. | Pass | Pass |
+| Voting on own Report | A logged-in user should not be able to vote on their own report, even when hitting the endpoint directly. | Pass | Pass |
+| User Profile | A logged-in user should be able to view their profile page, see a list of their reports, and update their profile picture. | Pass | Pass |
+| Deleting Other User's Content | A logged-in user should not be able to delete or edit another user's report or comment, even when hitting the endpoint directly. | Pass | Pass |
+| Searching for Username | A visitor (both with and without an account) should be able to search for reports by in-game username, and see a list of matching results. | Pass | Pass |
+| Sorting the Report List | A visitor (both with and without an account) should be able to sort the report list by "Most Recent" and "Top Reports". If they change the sort option whilst a username is typed into the search box, the filter should be preserved. | Pass | Pass |
+
+#### OnePlus 16 (Android 11)
+
+| Test Case | Expected Result | Actual Result | Pass / Fail |
+| --------- | --------------- | ------------- | ----------- |
+| Registration / Login / Logout | User should be able to register an account with a username and password, then login to the platform. When finished, they should be able to log out. | Pass | Pass |
+| Admin area denial | A user that has signed up on the site should not be able to access the Django administrator panel. | Pass | Pass |
+| News Stories | A visitor (both with and without an account) should be able to view news articles on the front page, view a list of news articles and click on an article for the full story | Pass | Pass |
+| Create Report | A logged-in user should be able to create a new report, filling out all required fields, and submitting the form successfully. | Pass | Pass |
+| View Report | A visitor (both with and without an account) should be able to view a report in full detail, including the embedded YouTube video, description, game details, comments and voting buttons. | Pass | Pass |
+| Comment on Report | A logged-in user should be able to post a comment on a report, and see their comment appear immediately. | Pass | Pass |
+| Vote on Report | A logged-in user should be able to upvote or downvote a report, and see the score update immediately. They should also be able to change or remove their vote. | Pass | Pass |
+| Voting on own Report | A logged-in user should not be able to vote on their own report, even when hitting the endpoint directly. | Pass | Pass |
+| User Profile | A logged-in user should be able to view their profile page, see a list of their reports, and update their profile picture. | Pass | Pass |
+| Deleting Other User's Content | A logged-in user should not be able to delete or edit another user's report or comment, even when hitting the endpoint directly. | Pass | Pass |
+| Searching for Username | A visitor (both with and without an account) should be able to search for reports by in-game username, and see a list of matching results. | Pass | Pass |
+| Sorting the Report List | A visitor (both with and without an account) should be able to sort the report list by "Most Recent" and "Top Reports". If they change the sort option whilst a username is typed into the search box, the filter should be preserved. | Pass | Pass |
+
+#### Windows 10 (Google Chrome v143.0.7499.193)
+
+| Test Case | Expected Result | Actual Result | Pass / Fail |
+| --------- | --------------- | ------------- | ----------- |
+| Registration / Login / Logout | User should be able to register an account with a username and password, then login to the platform. When finished, they should be able to log out. | Pass | Pass |
+| Admin area denial | A user that has signed up on the site should not be able to access the Django administrator panel. | Pass | Pass |
+| News Stories | A visitor (both with and without an account) should be able to view news articles on the front page, view a list of news articles and click on an article for the full story | Pass | Pass |
+| Create Report | A logged-in user should be able to create a new report, filling out all required fields, and submitting the form successfully. | Pass | Pass |
+| View Report | A visitor (both with and without an account) should be able to view a report in full detail, including the embedded YouTube video, description, game details, comments and voting buttons. | Pass | Pass |
+| Comment on Report | A logged-in user should be able to post a comment on a report, and see their comment appear immediately. | Pass | Pass |
+| Vote on Report | A logged-in user should be able to upvote or downvote a report, and see the score update immediately. They should also be able to change or remove their vote. | Pass | Pass |
+| Voting on own Report | A logged-in user should not be able to vote on their own report, even when hitting the endpoint directly. | Pass | Pass |
+| User Profile | A logged-in user should be able to view their profile page, see a list of their reports, and update their profile picture. | Pass | Pass |
+| Deleting Other User's Content | A logged-in user should not be able to delete or edit another user's report or comment, even when hitting the endpoint directly. | Pass | Pass |
+| Searching for Username | A visitor (both with and without an account) should be able to search for reports by in-game username, and see a list of matching results. | Pass | Pass |
+| Sorting the Report List | A visitor (both with and without an account) should be able to sort the report list by "Most Recent" and "Top Reports". If they change the sort option whilst a username is typed into the search box, the filter should be preserved. | Pass | Pass |
+
 ### Automated Testing - Unit Tests
+
+To ensure that the core functions of the site work as expected, I used Django's built-in test tools to run a series of unit tests. Each time the tests are run, a local sqlite3 database is created, and basic test data is populated. The tests are run against this database, ensuring that no real data is affected.
+
+Each unit test "file" runs it's tests in a random order, ensuring that no test is dependent on another test being run first.
+
+Due to the time remaining in the project, I was only able to implement unit tests on the view of the "News Blog" feature.
+
+Below is a list of the unit tests implemented in `newsblog/test_views.py`:
+
+- Test that the news list view returns a 200 status code.
+
+- Test that news list view uses correct template
+
+- Test that only published posts are displayed
+
+- Test that posts are ordered by newest first
+
+- Test that pagination works correctly
+
+- Test that news detail view returns 200 status code
+
+- Test that news detail view uses correct template
+
+- Test that detail view displays correct post
+
+- Test that unpublished posts return 404
+
+- Test that recent posts exclude current post
+
+- Test that previous post is correctly identified
+
+- Test that next post is correctly identified
+
+- Test that first post has no previous post
+
+- Test that last post has no next post
+
+- Test that requesting non-existent post returns 404
+
+Below is a screenshot of these test running successfully, as of 23/01/2026:
+
+![Unit Tests Screenshot](./readme_docs/unit_tests.png)
+
+In future releases, I aim to implement comprehensive unit testing for the views in the `cheaterreport` and `userprofile` apps.
 
 ### Lighthouse Auditing
 
+The "Lighthouse" tool built into Google Chrome DevTools was used to audit the performance, accessibility, best practices and SEO of the site.
+
+Below are a few example audits for the "busiest" pages on the site:
+
+![Lighthouse Audit - Home Page](./readme_docs/lighthouse_general/home.png)
+*Home Page Audit*
+
+![Lighthouse Audit - New Report Page](./readme_docs/lighthouse_general/new_report.png)
+*New Report Page Audit*
+
+![Lighthouse Audit - Reports List Page](./readme_docs/lighthouse_general/reports_list.png)
+*Reports List Page Audit*
+
+![Lighthouse Audit - Report Detail Page](./readme_docs/lighthouse_general/report_detail.png)
+*Report Detail Page Audit*\
+***NOTE**: The "Best Practices" score is much lower than average, due to the YouTube embed loading external cookies from YouTube.com. This is a notorious issue with YouTube's embedding process. The only non-workaround solution would be for Google to create a zero-tracking version of youtube specifically for embedding.*
+
+Overall, Lighthouse was great for exposing any issues with my site that I may have missed during my initial implementation. Below are a couple of examples:
+
+-   My initial implementation for fetching the thumbnail of a YouTube video used the regular YouTube domain. This meant that I was also having the above third-party cookies issue on any page that used YouTube video thumbnails. I switched this domain to the cookie-free `i.ytimg.com` domain, which uses zero tracking cookies.
+
+<details>
+
+<summary>Before & After (Click to Expand)</summary>
+
+![Before Fix](./readme_docs/lighthouse_fixing_cookies/1.png)
+
+![After Fix](./readme_docs/lighthouse_fixing_cookies/2.png)
+
+</details>
+
+-   Initially my site has a poor SEO score due to missing a meta description tag. I added a general description meta tag to the base template, which would be used site-wide. In future releases, I aim to make this dynamic / per-page.
+
+<details>
+
+<summary>Before & After (Click to Expand)</summary>
+
+![Before Fix](./readme_docs/lighthouse_fixing_seo/1.png)
+
+![After Fix](./readme_docs/lighthouse_fixing_seo/2.png)
+
+</details>
+
 ### Validation Testing - HTML
+
+To validate my HTML, I used the [W3C Markup Validation Service](https://validator.w3.org/). This ensured my HTML was semantically correct, and followed best practices.
+
+Whilst most of the pages passed with easily-fixable warnings, one recurring issue was due to the semantic use of header tags. Sometimes, I would skip over using an `<h3>` tag, and jump directly from an `<h4>`. Below is an example of me fixing this issue:
+
+![W3C HTML Before Fix](./readme_docs/w3c_html_validation/home/home1.png)
+*1. Before Fix*
+
+![W3C HTML After Fix](./readme_docs/w3c_html_validation/home/home2.png)
+*2. After Fix*
 
 ### Validation Testing - CSS
 
+To validate my CSS, I used the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/). As my CSS was broken up into multiple files, then reimported into a globa / index stylesheet, I had to validate each file individually.
+
+Below is an example screenshot from one of these files passing validation. Whilst there are a few warnings, these "Vendor Extensions" are added automatically by the "CSS Autoprefixer" tool that I use to ensure compatibility across different browsers, like Safari and Opera.
+
+![W3C CSS Validation Result](./readme_docs/w3c_css_validation/home.png)
+*1. Validation Result*
+
+![W3C CSS Validation Warnings](./readme_docs/w3c_css_validation/warnings.png)
+*2. Validation Warnings*
+
 ### Validation Testing - JavaScript
 
+For certain functionality on the site, I needed to use JavaScript to provide real-time HTML updates without needing to refresh the page. This was required for form buttons becoming enabled when a user has a pending profile picture change, and better interactivity when a user wants to edit or delete their comment on a report. This functionality lies in the following files:
+
+- `static/js/change_profile_picture.js`
+
+- `static/js/comments.js`
+
+To validate this Javascript, I used [JSValidator](https://jsvalidator.com/) to confirm there were no syntax errors or issues with the code. For linting and formatting my JavaScript, I used the [Prettier](https://prettier.io/) extension in VS Code.
+
+Below are the JSValidator results for both files:
+
+![Comments Javascript](./readme_docs/js_validation/comments.png)
+*1. Comments Javascript*
+
+![Change Profile Picture Javascript](./readme_docs/js_validation/change_profile_picture.png)
+*2. Change Profile Picture Javascript*
+
 ### Validation Testing - Python
+
+Python code must conform to "PEP 8" standards. For this, I used the [CI Python Linter](https://pep8ci.herokuapp.com/) tool provided by The Code Institute.
+
+Rather than test this on every single Python file within the project (e.g. boilerplate code in settings, minimal `admin.py` files), I focused on the files that I had written the most code in. These files were my `views.py` files within each app.
+
+Below are the results from the `views.py` file in the `about`, `cheaterreports`, `newsblog` and `userprofile` apps:
+
+![About Python Validation](./readme_docs/python_validation/about.png)
+*1. About Python Validation*
+
+![Home Python Validation](./readme_docs/python_validation/home.png)
+*2. Home Python Validation*
+
+![Cheaterreports Python Validation](./readme_docs/python_validation/cheaterreports.png)
+*3. Cheaterreports Python Validation*
+
+![Newsblog Python Validation](./readme_docs/python_validation/newsblog.png)
+*4. Newsblog Python Validation*
+
+![Userprofile Python Validation](./readme_docs/python_validation/userprofile.png)
+*5. Userprofile Python Validation*
 
 ## How AI Was Used in This Project
 
