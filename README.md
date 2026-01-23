@@ -143,9 +143,73 @@ For the full, expanded user stories, please see the [GitHub Projects board](http
 
 ## Planning / User Experience / UX Design
 
-### Typography: Font Choices & Color Palette
+### Typography: Font Choices
+
+When choosing a font, I wasn't too worried about sticking to a particular style or brand. I was much more focused on readability and accessibility between different devices and operating systems.
+
+After a bit of online research, I discovered a CSS rule called `system-ui`, which allows the browser to choose a font based on the user's system. This means that Windows, iOS and Android will all resole to different fonts, but each one will be optimized for readability on that specific system.
+
+Below is a simple table on what fonts will be resolved on each system:
+
+| Operating System | Resolved Font          |
+| ---------------- | ---------------------- |
+| Windows 10       | Segoe UI               |
+| Windows 11       | Segoe UI Variable      |
+| macOS            | San Francisco (SF Pro) |
+| iPhone (iOS)     | San Francisco (SF Pro) |
+| iPad (iPadOS)    | San Francisco (SF Pro) |
+| Android          | Roboto                 |
+
+A bonus from this also ensures that the site will load faster, as the browser does not need to download any additional font files.
+
+### Typography: Color Palette
+
+![Color Palette](./readme_docs/color_palette.png)
+
+When thinking about the kind of colors I'd like to use on the site, I drew on my experience as being a part of the target audience for this project. Many gaming platforms, such as Steam and Epic Games Store, use dark themes **by default**, with high contrast elements to make the content stand out.
+
+The color palette shown above achieved exactly what I wanted. I used a pair of dark navy/blue colors for the background and foreground elements, with white for text, Accented text is the bright red shown above, and green was the primary color used for the buttons.
 
 ### Wireframes
+
+I used [Penpot](https://penpot.app/) to create wireframes for the main pages of the site. Penpot is an open-source design and prototyping tool, which allowed me to be very specific with my designs, without the cost of paid tools like Figma or Adobe XD.
+
+For my sitemap, I use [Miro](https://miro.com/) to create a simple flowchart of how the pages would link together. I then took a screenshot of this and pasted it into Penpot, to keep everything in one place.
+
+Please note that some areas of my site, such as the "News", "About" and "User Profile" pages were not included in the wireframes, as I wanted to see how the AI tools at my disposal could take my implemented features, and stay consistent with the existing designs to create these additional pages. More on this later in the ["How AI Was Used in This Project"](#how-ai-was-used-in-this-project) section.
+
+The exported wireframes can be seen below:
+
+---
+<details>
+
+<summary>Sitemap (Click to Expand)</summary>
+
+![Sitemap](./readme_docs/wireframes/sitemap.webp)
+
+</details>
+
+---
+
+<details>
+
+<summary>Homepage (Click to Expand)</summary>
+
+![Desktop](./readme_docs/wireframes/home/desktop.webp)
+
+![Tablet](./readme_docs/wireframes/home/tablet.webp)
+
+![Mobile](./readme_docs/wireframes/home/mobile.webp)
+
+</details>
+
+<details>
+
+<summary>Sign Up / Log In (Click to Expand)</summary>
+
+![Sign Up / Log In](./readme_docs/wireframes/sign_up_login.webp)
+
+</details>
 
 ### Database Design
 
