@@ -357,6 +357,17 @@ All user stories were tracked on a GitHub Projects board. The board was divided 
 
 - **Done:** User stories that are fully-satisfied, and deployed to Heroku. Any required database migrations have also been run.
 
+Below are a few screenshots of how the board looked at different stages of the project:
+
+![GitHub Projects Board - Start of Project](./readme_docs/user_stories/user_stories_1.png)
+*GitHub Projects Board - Start of Project*
+
+![GitHub Projects Board - Middle of Project](./readme_docs/user_stories/user_stories_2.png)
+*GitHub Projects Board - Middle of Project*
+
+![GitHub Projects Board - End of Project](./readme_docs/user_stories/user_stories_3.png)
+*GitHub Projects Board - End of Project*
+
 ### GitHub Repo Branch Methodology
 
 ![Git Branching Strategy](./readme_docs/github-branches.png)\
