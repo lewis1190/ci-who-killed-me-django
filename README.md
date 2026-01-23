@@ -590,6 +590,58 @@ Below are the results from the `views.py` file in the `about`, `cheaterreports`,
 
 ## How AI Was Used in This Project
 
+The use of generative AI tools were extremely useful; allowing me to create a responsive, complex site in a short amount of time. I ensured that I got the most value out of the tools available, implementing it in each phase of the project.
+
+That said, especially during the coding phase, I would never let the AI write something that I didn't understand. If I didn't understand something, I would converse with it until I did. This ensured that I was still learning, and not just letting AI "do all the work" for me.
+
+### Design
+
+Whilst I was designing the wireframes for my site and getting ideas for the color pallette, I used [ChatGPT](https://chat.openai.com/) for helping with brainstorming. Based on my initial wireframes, I could ask it to generate mock-up images of certain pages, to see how it would interpret my designs.
+
+Below is an example of ChatGPT generating a mock-up of the home page, which ended up **quite** close to how my MVP looked!
+
+![ChatGPT Home Page Mockup](./readme_docs/ai_usage/mockup.png)
+
+### Development
+
+For the creation of certain features, I used the CoPilot extension in VS Code. If I was unsure on how to code something, or what syntax to use, I could ask the AI to generate the skeleton of the code for me, or just point me in the right direction.
+
+A good example of this was when I was implementing the voting system for reports. I knew the general idea of how I wanted it to work, but I wasn't sure on the best way to structure the models and views to achieve this. I was able to talk it through with the AI to break down the problem (as I would pair programming with a human), and get suggestions on how to implement it.
+
+Whilst AI was great for fleshing out an existing project, I would never let it touch any file relating to the foundation / configuration of the project. For example, if there was ever an issue I had to fix in `settings.py`, I would always check the documentation and fix it myself; as AI has a habit of suggesting deprecated code, or configuration snippets unrelated to what I want to achieve.
+
+Finally, when I had similar code in another file that I had to bring over to a new file, but with slight modifications. CoPilot was able to recognize the similarities, and suggest the modified code for me, reducing a ~20 minute task to under a minute.
+
+Below is a screenshot of this in action:
+
+![CoPilot Suggestion Screenshot](./readme_docs/ai_usage/copilot_adapting_code.png)
+
+### Testing
+
+CoPilot was handy for verifying and validating the code and features that I had implemented. On complex code, I could ask it to point out any potential edge-cases in my form validation, or security holes in my views. If it suggested something, I would try that edge-case manually to see if it was an actual issue, and fix as-needed.
+
+CoPilot also helped me with my unit tests for the news blog feature. When I specifically had 3 unit tests failing, I asked CoPilot to investigate. It found that there was a race condition in the setup of my data, as I was testing something time-sensitive. It explained what was likely going wrong, and offered to fix it for me.
+
+Below is a snippet of that conversation:
+
+![CoPilot Unit Test Fix Screenshot](./readme_docs/ai_usage/testing.png)
+
+### Debugging
+
+CoPilot was especially useful for debugging tricky issues when I had complex functionality.
+
+For example, when I initially implemented the voting system, it appeared to work when I was doing everything via a single user. However, when I logged in as a different user, I noticed that the site thought I had already voted on a report, when I hadn't.
+
+I debugged this manually using VSCode's step-through debugger, and I found the line that the issue was happening on. I then summarized and relayed this to CoPilot, and it suggested the actual fix for me.
+
+Below is a screenshot of that conversation:
+
+![CoPilot Debugging Screenshot](./readme_docs/ai_usage/debugging.png)
+
 ## Deployment
 
-## Credits
+This project is currently using Heroku for deployment and hosting. The steps taken to deploy the project are as follows:
+
+
+
+## Credits & Copyright
