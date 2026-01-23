@@ -291,7 +291,7 @@ Over the project, the ERD changed a few times as I adjusted the scope of my proj
 
 ## Agile Project Management
 
-The project was managed using Agile methodologies, with user stories and tasks tracked on a GitHub Projects board. As the assignment length was 3 weeks, I used the **scrum** framework to break the project down into 3 separate phases:
+The project was managed using Agile, with user stories and tasks tracked on a GitHub Projects board. As the assignment length was 3 weeks, I used the **scrum** framework to break the project down into 3 separate phases:
 
 - **Phase / Week 1 - Planning and Design:** Gathering requirements, creating user stories, designing wireframes, and creating the ERD.
 
@@ -330,7 +330,33 @@ I decided to adopt the "Feature Branch" workflow for this project. I set myself 
 
 ## Testing and Quality Assurance
 
+Despite being an MVP, my project still had a good amount of complexity, especially around the "Voting System" that I implemented. Users had to be able to upvote and downvote reports, but only once per report. If they changed their mind, they could switch their vote, or remove it entirely. This had to change the report's score immediately, and propagate those changes to other users. If the data was able to "fall out of sync" or become corrupted, the entire platform could be brought down for all users.
+
+This meant that a comprehensive set of test procedures had to be put in place. During the time I had for the assignment, I covered essential form validation and user security, as well as lots of manual testing. When coding new features, I would always check responsiveness, rather than leaving it until the final stretch of the project.
+
 ### Ensuring Security
+
+There are two primary areas of security within my project; **User Security** and **Project Security**.
+
+**User Security** concerns everything involving user accounts on the Who Killed Me platform. For example:
+
+- Users shouldn't be able to create new "News Posts". Only superadmins.
+
+- Regular users shouldn't be able to access the Django admin panel. Only superadmins.
+
+- Users shouldn't be able to modify data that belongs to another user. This includes the editing of someone elses report, comment or profile picture.
+
+User security was further verified and validated during the manual testing phase.
+
+**Project Security** covers the behind-the-scenes functionality of the project. For example:
+
+- The `Debug` mode in Django should be disabled when deployed to Heroku.
+
+  -   I added some custom code to the `settings.py` file that would only turn debug mode on if an `env.py` file was detected, **AND** a `DEBUG` param of `True` was explicitly being passed in.
+
+- The environment variables, including the database URL, secret key and Cloudinary API key shouldn't be hard-coded into the project. When developing locally, these must be stored in a `env.py` file.
+
+  -   On the Heroku portal, these environment variables were managed and passed in via the "Config Vars" panel.
 
 ### Manual Testing
 
