@@ -142,6 +142,12 @@ During this project, I wanted to implement the basic features of a forum website
 User stories were grouped into milestones on GitHub. Each milestone would be represent a functional area of the site, as seen here:
 
 ![User Story Milestones](./readme_docs/milestones.png)
+*1. User Story Milestones used for GitHub issues.*
+
+Additionally, I used GitHub's labels feature to prioritize how crucial each user story was to the project MVP. I adopted the MoSCoW method of prioritization, which stands for "Must Have", "Should Have", "Could Have" and "Won't Have".
+
+![User Story Labels](./readme_docs/moscow-priorities.png)
+*2. All GitHub Issue Labels used during my project.*
 
 Below is a full list of user stories that I created when planning this project. Each user story was expanded into a list of "Acceptance Criteria" and "Tasks" that must be satisfied to mark the story as complete.
 
