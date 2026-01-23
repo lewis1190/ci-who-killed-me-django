@@ -147,7 +147,7 @@ For the full, expanded user stories, please see the [GitHub Projects board](http
 
 When choosing a font, I wasn't too worried about sticking to a particular style or brand. I was much more focused on readability and accessibility between different devices and operating systems.
 
-After a bit of online research, I discovered a CSS rule called `system-ui`, which allows the browser to choose a font based on the user's system. This means that Windows, iOS and Android will all resolve to different fonts, but each one will be optimized for readability on that specific system.
+After a bit of online research, I discovered a CSS rule called `system-ui`, which allows the browser to choose a font based on the user's system. This means that Windows, iOS and Android will all resolve to different fonts, but each one will be optimized for readability on that specific system, and also feel familiar to the user.
 
 Below is a simple table on what fonts will be resolved on each system:
 
@@ -168,7 +168,7 @@ A bonus from this also ensures that the site will load faster, as the browser do
 
 When thinking about the kind of colors I'd like to use on the site, I drew on my experience as being a part of the target audience for this project. Many gaming platforms, such as Steam and Epic Games Store, use dark themes **by default**, with high contrast elements to make the content stand out.
 
-The color palette shown above achieved exactly what I wanted. I used a pair of dark navy/blue colors for the background and foreground elements, with white for text, Accented text is the bright red shown above, and green was the primary color used for the buttons.
+The color palette shown above achieved exactly what I wanted. I used a pair of dark navy/blue colors for the background and foreground elements, with white for text. For accent text, a bright red was used, and green was the primary color used for the buttons.
 
 ### Wireframes
 
@@ -195,13 +195,11 @@ The exported wireframes can be seen below:
 
 <summary>Homepage (Click to Expand)</summary>
 
-![Desktop](./readme_docs/wireframes/home/desktop.webp)
-
-![Tablet](./readme_docs/wireframes/home/tablet.webp)
-
-![Mobile](./readme_docs/wireframes/home/mobile.webp)
+![Home Page](./readme_docs/wireframes/home.webp)
 
 </details>
+
+---
 
 <details>
 
@@ -211,7 +209,85 @@ The exported wireframes can be seen below:
 
 </details>
 
+---
+
+<details>
+
+<summary>SuperAdmin Block Page (Click to Expand)</summary>
+
+![SuperAdmin Block Page](./readme_docs/wireframes/superadmin_block_page.webp)
+
+</details>
+
+---
+
+<details>
+
+<summary>Top Posts Page (Click to Expand)</summary>
+
+![Top Posts Page](./readme_docs/wireframes/top_posts_page.webp)
+
+</details>
+
+---
+
+<details>
+
+<summary>Username Search Results (Click to Expand)</summary>
+
+![Username Search Results](./readme_docs/wireframes/username_search_results.webp)
+
+</details>
+
+---
+
+<details>
+
+<summary>View Moderation Reports (Click to Expand)</summary>
+
+![View Moderation Reports](./readme_docs/wireframes/view_moderation_reports.webp)
+
+</details>
+
+---
+
+<details>
+
+<summary>New Post Page (Click to Expand)</summary>
+
+![New Post Page](./readme_docs/wireframes/new_post_page.webp)
+
+</details>
+
+---
+
+<details>
+
+<summary>Post Details Page (Click to Expand)</summary>
+
+![Post Details Page](./readme_docs/wireframes/post_details_page.webp)
+
+</details>
+
+---
+
 ### Database Design
+
+When designing the database schema for this project, I used [dbdiagram.io](https://dbdiagram.io/) to create an Entity-Relationship Diagram (ERD).
+
+The biggest advantage that this tool provided was the ability to use the DBML (Database Markup Language) to "code" my database structure, rather than using a visual-first platform with drag-and-drop features. This ensured that I took care with the relationships between tables. If something didn't work when coding in DBML, it definitely wasn't going to work when implementing the real models in Django.
+
+Over the project, the ERD changed a few times as I adjusted the scope of my project in-line with time constraints and to avoid scope creep. Below is the initial ERD that I started with, and the ERD that reflects the current functionality of the platform.
+
+#### Initial ERD
+
+![Initial ERD](./readme_docs/erds/1/erd1.png)
+*1. The initial ERD created at during my "design" phase.*
+
+#### Final ERD
+
+![Final ERD](./readme_docs/erds/2/erd2.png)
+*2. The final ERD that reflects the current functionality of the platform.*
 
 ## Agile Project Management
 
