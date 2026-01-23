@@ -291,9 +291,42 @@ Over the project, the ERD changed a few times as I adjusted the scope of my proj
 
 ## Agile Project Management
 
+The project was managed using Agile methodologies, with user stories and tasks tracked on a GitHub Projects board. As the assignment length was 3 weeks, I used the **scrum** framework to break the project down into 3 separate phases:
+
+- **Phase / Week 1 - Planning and Design:** Gathering requirements, creating user stories, designing wireframes, and creating the ERD.
+
+- **Phase / Week 2 - Development:** Setting up the development environment and repo, implementing core features, and conducting initial testing.
+
+- **Phase / Week 3 - Testing, Deployment, Documentation:** Unit and manual testing, bug fixing, edge-case handling, deployment, and documentation.
+
 ### GitHub Projects Board
 
+All user stories were tracked on a GitHub Projects board. The board was divided into four columns:
+
+- **Backlog:** Any user story starts here, including those that may not be worked on for MVP.
+
+- **Todo:** User stories that were planned to be worked on **soon**. For example, if I was working on the "New Blog" feature, all user stories within that milestone would be moved to this column.
+
+- **In Progress:** User stories that were actively being worked on, fixed or tested.
+
+- **Done:** User stories that are fully-satisfied, and deployed to Heroku. Any required database migrations have also been run.
+
 ### GitHub Repo Branch Methodology
+
+![Git Branching Strategy](./readme_docs/github-branches.png)\
+*1. All branches created during the course of this assignment.*
+
+I decided to adopt the "Feature Branch" workflow for this project. I set myself the following rules:
+
+- The `main` branch always contains production-ready code.
+
+- The `develop` branch contains the latest completed features that are ready for manual testing before the next release. Once I'm satisfied with the changes, I would create a Pull Request from `develop` to `main`, and deploy the changes to Heroku.
+
+- A `feat/*` branch would be created for each milestone within my project. For example, the news blog feature was implemented in a branch called `feat/news`.
+
+- A `chore/*` branch would be created for any non-feature work, small bugs, UI tweaks, code formatting or fixing linting errors.
+
+  -   I used a generic `chore/cleanup` branch for all of my tweaks, as having a branch for each small change would have caused a lot of additional administrative overhead for the project. However, if this were a larger project with multiple developers, the extra overhead would be required.
 
 ## Testing and Quality Assurance
 
