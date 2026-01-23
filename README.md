@@ -147,7 +147,7 @@ For the full, expanded user stories, please see the [GitHub Projects board](http
 
 When choosing a font, I wasn't too worried about sticking to a particular style or brand. I was much more focused on readability and accessibility between different devices and operating systems.
 
-After a bit of online research, I discovered a CSS rule called `system-ui`, which allows the browser to choose a font based on the user's system. This means that Windows, iOS and Android will all resole to different fonts, but each one will be optimized for readability on that specific system.
+After a bit of online research, I discovered a CSS rule called `system-ui`, which allows the browser to choose a font based on the user's system. This means that Windows, iOS and Android will all resolve to different fonts, but each one will be optimized for readability on that specific system.
 
 Below is a simple table on what fonts will be resolved on each system:
 
